@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+#back-arrow {
+    display: block;
+    text-align: left;
+    font-size: 2em;
+    margin-left: 10%;
+}
+#back-arrow:hover {
+    cursor: pointer;
+}
+#root-div {
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+}
+
+#activity-form {
+    width: 50%;
+    margin: 0 auto;
+}
+.form-entry {
+    width: 60%;
+    margin: 20px auto;
+}
+#form-submit {
+    width: 60%;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+input, select {
+    width: 100%;
+}
+input {
+    padding: 2px 5px;
+}

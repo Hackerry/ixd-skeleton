@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/add-activity.css">
+    </head>
+    <body>
+        <div id='root-div'>
+            <i class="fas fa-arrow-left" id='back-arrow'></i>
+            <h1>Add Activity</h1>
+            <form action="/activity.html" id='activity-form'>
+                <div class='form-entry'>
+                    <label>Activity Name</label>
+                    <input type='text' />
+                </div>
+                <div class='form-entry'>
+                    <label for="type">Type</label>
+                    <select name="type" id="type">
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="fun">Fun</option>
+                        <option value="family">Family</option>
+                        <option value="more">See More</option>
+                    </select>
+                </div>
+                <div class='form-entry'>
+                    <label>Starting Time</label>
+                    <input type='time' />
+                </div>
+                <div class='form-entry'>
+                    <label>Stopping time</label>
+                    <input type='time' />
+                </div>
+                <div class='form-entry'>
+                    <input type='submit' value='Add' id='form-submit' />
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
