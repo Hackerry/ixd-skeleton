@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/weekly-report.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id='root-div'>
+            <div id='content-div'>
+                <div id='title-bar'>
+                    <i class="fas fa-arrow-left" id='back-arrow'></i>
+                    <h1>Weekly Report</h1>
+                </div>
+                <div id='options'>
+                    <select id="week">
+                        <option value="1">Week 1</option>
+                        <option value="2">Week 2</option>
+                        <option value="3">Week 3</option>
+                    </select>
+                    <select id="scale">
+                        <option value="average">On average</option>
+                        <option value="total">In total</option>
+                    </select>
+                </div>
+
+                <!-- Dynamically filled -->
+                <canvas id='chart' width=200px height=200px></canvas>
+
+                <!-- Dynamically generated -->
+                <ul id='list'></ul>
+
+                <div id='buttons'>
+                    <select id="chart-type">
+                        <option value="pie">Pie Chart</option>
+                        <option value="bar">Bar Chart</option>
+                    </select>
+                    <br>
+    
+                    <!-- Put as div for now, not sure how to show results yet -->
+                    <div id='detail-button'>
+                        Details
+                    </div>
+                    <br>
+                    <div id='suggestion-button'>
+                        Suggestions
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!-- Script that draws content based on response -->
+    <script>
+        console.log({{something}});
+        const hourDay = 24;
+
+        // Potentially read from database
+        const color = {
+            "work": "#d15151",
+            "school": "#5b935a",
+            "family": "#e1c85a",
+            "sleep": "#6a59ce",
+            "fun": "#94ecff",
+        };
+
+        // Passed in from database in handlebar
+        /**
+        var activities = {
+            "work": 9,
+            "school": 7,
+            "family": 4,
+            "sleep": 4,
+            "fun": 0,
+        };
+        */
+
+        var activities = {
+            {{#each activities}}
+            {{name}}: {{hours}},
+            {{/each}}
+        };
+
+        // Document ready event
+        $(document).ready(function() {
+            // Draw pie chart
+            drawPieChart();
+
+            // Populate list
+            populateActivitiesList();
+        });
+
+        // Draw activity pie chart
+        function drawPieChart() {
+            var g = document.getElementById('chart').getContext('2d');
+
+            // Angle var, align first activity to 0 degree
+            var startAngle = -0.5*Math.PI;
+
+            // Check hour sum
+            var sum = 0;
+            for(var i in activities) {
+                sum += activities[i];
+            }
+            if(sum !== hourDay) {
+                console.error("Activities sum over 24hrs.");
+                return;
+            }
+
+            // Draw each arc
+            for(var i in activities) {
+                if(!(i in color)) {
+                    console.error("Activity", i, "doesn't have a color associated.");
+                }
+
+                // Draw arc
+                var addAngle = activities[i]/24*2*Math.PI;
+                g.beginPath();
+                g.moveTo(100,100);
+                g.arc(100, 100, 100, startAngle, startAngle + addAngle);
+                g.fillStyle = color[i];
+                g.fill();
+
+                startAngle += addAngle;
+            }
+        }
+    
+        // Populate activities list
+        function populateActivitiesList() {
+            var list = document.getElementById("list");
+
+            for(var i in activities) {
+                var activity = document.createElement("li");
+                var icon = document.createElement("span");
+                activity.className = "list-entry";
+                icon.style.backgroundColor = color[i];
+                activity.innerText = i + ": " + activities[i] + "h/day";
+                activity.prepend(icon);
+                list.appendChild(activity);
+            }
+        }
+    </script>
+</html>

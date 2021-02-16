@@ -6,34 +6,37 @@ body {
     padding: 0;
     margin: 0;
 }
+#root-div {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+#content-div {
+    width: 100%;
+}
+#title-bar {
+    position: relative;
+}
 #back-arrow {
-    display: block;
-    text-align: left;
+    position: absolute;
+    top: 2px;
+    left: 30px;
     font-size: 2em;
-    margin-left: 30%;
 }
 #back-arrow:hover {
     cursor: pointer;
 }
-
-#root-div {
-    margin: 0 auto;
-    width: 50%;
-    text-align: center;
-}
-
 #activity-form {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
 }
 .form-entry {
-    width: 60%;
+    width: 80%;
     margin: 20px auto;
 }
 #form-submit {
-    width: 60%;
+    width: 80%;
 }
-
 label {
     display: block;
     text-align: left;
