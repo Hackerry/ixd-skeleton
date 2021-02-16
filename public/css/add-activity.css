@@ -6,45 +6,56 @@ body {
     padding: 0;
     margin: 0;
 }
+
 #root-div {
     margin: 0 auto;
     width: 100%;
     text-align: center;
 }
+
 #content-div {
     width: 100%;
 }
+
 #title-bar {
     position: relative;
 }
+
 #back-arrow {
     position: absolute;
     top: 2px;
     left: 30px;
     font-size: 2em;
 }
+
 #back-arrow:hover {
     cursor: pointer;
 }
+
 #activity-form {
     width: 80%;
     margin: 0 auto;
 }
+
 .form-entry {
     width: 80%;
     margin: 20px auto;
 }
+
 #form-submit {
     width: 80%;
 }
+
 label {
     display: block;
     text-align: left;
     margin-bottom: 5px;
 }
+
 input, select {
     width: 100%;
 }
+
 input {
     padding: 2px 5px;
 }
