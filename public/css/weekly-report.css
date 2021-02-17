@@ -7,6 +7,11 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 #root-div {
     width: 100%;
     margin: 0 auto;
@@ -19,18 +24,42 @@ body {
 }
 
 #title-bar {
-    position: relative;
+    font-size: 2em;
 }
 
-#back-arrow {
-    position: absolute;
-    top: 2px;
-    left: 30px;
-    font-size: 2em;
+#back-bar, #hamburger-bar {
+    width: 40%;
+    display: inline-block;
+    box-sizing: content-box;
+}
+
+#back-bar {
+    text-align: left;
+}
+
+#hamburger-bar {
+    text-align: right;
 }
 
 #back-arrow:hover {
     cursor: pointer;
+}
+
+#hamburger-button:hover {
+    cursor: pointer;
+}
+
+#nav-bar {
+    position: absolute;
+    right: 0;
+    padding-right: 15%;
+    background-color: black;
+    color: white;
+    height: 100%;
+    top: 0;
+    z-index: -1;
+    text-align: left;
+    padding-top: 100px;
 }
 
 #options {

@@ -7,6 +7,11 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 #root-div {
     margin: 0 auto;
     width: 100%;
@@ -18,17 +23,28 @@ body {
 }
 
 #title-bar {
-    position: relative;
-}
-
-#back-arrow {
-    position: absolute;
-    top: 2px;
-    left: 30px;
     font-size: 2em;
 }
 
+#back-bar, #hamburger-bar {
+    width: 40%;
+    display: inline-block;
+    box-sizing: content-box;
+}
+
+#back-bar {
+    text-align: left;
+}
+
+#hamburger-bar {
+    text-align: right;
+}
+
 #back-arrow:hover {
+    cursor: pointer;
+}
+
+#hamburger-button:hover {
     cursor: pointer;
 }
 

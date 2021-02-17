@@ -12,9 +12,23 @@
         <div id='root-div'>
             <div id='content-div'>
                 <div id='title-bar'>
-                    <i class="fas fa-arrow-left" id='back-arrow'></i>
-                    <h1>Weekly Report</h1>
+                    <div id='back-bar'>
+                        <a href='/'><i class="fas fa-arrow-left" id='back-arrow'></i></a>
+                    </div>
+                    <div id='hamburger-bar'>
+                        <i class="fas fa-bars" id='hamburger-button'></i>
+                    </div>
                 </div>
+
+                <div id='nav-bar'>
+                    <ul id='nav-bar-list'>
+                        <li>Home</li>
+                        <li>Create Activity</li>
+                        <li>Report</li>
+                    </ul>
+                </div>
+
+                <h1>Weekly Report</h1>
                 <div id='options'>
                     <select id="week">
                         <option value="1">Week 1</option>
@@ -56,7 +70,11 @@
 
     <!-- Script that draws content based on response -->
     <script>
-        console.log({{something}});
+        // Nav bar js
+        var navBar = document.getElementById("nav-bar");
+        navBar.
+
+
         const hourDay = 24;
 
         // Potentially read from database
@@ -68,17 +86,7 @@
             "fun": "#94ecff",
         };
 
-        // Passed in from database in handlebar
-        /**
-        var activities = {
-            "work": 9,
-            "school": 7,
-            "family": 4,
-            "sleep": 4,
-            "fun": 0,
-        };
-        */
-
+        // Passed from .js
         var activities = {
             {{#each activities}}
             {{name}}: {{hours}},

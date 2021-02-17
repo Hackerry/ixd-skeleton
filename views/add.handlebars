@@ -9,13 +9,18 @@
         <div id='root-div'>
             <div id='content-div'>
                 <div id='title-bar'>
-                    <i class="fas fa-arrow-left" id='back-arrow'></i>
-                    <h1>Add Activity</h1>
+                    <div id='back-bar'>
+                        <a href='/'><i class="fas fa-arrow-left" id='back-arrow'></i></a>
+                    </div>
+                    <div id='hamburger-bar'>
+                        <i class="fas fa-bars" id='hamburger-button'></i>
+                    </div>
                 </div>
-                <form action="/activity.html" id='activity-form'>
+                <h1>Add Activity</h1>
+                <form action="/addConfirmation" id='activity-form'>
                     <div class='form-entry'>
                         <label>Activity Name</label>
-                        <input type='text' />
+                        <input name='activityName' type='text' />
                     </div>
                     <div class='form-entry'>
                         <label for="type">Type</label>
@@ -29,11 +34,11 @@
                     </div>
                     <div class='form-entry'>
                         <label>Starting Time</label>
-                        <input type='time' />
+                        <input name='startTime' type='time' />
                     </div>
                     <div class='form-entry'>
                         <label>Stopping time</label>
-                        <input type='time' />
+                        <input name='endTime' type='time' />
                     </div>
                     <div class='form-entry'>
                         <input type='submit' value='Add' id='form-submit' />

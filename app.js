@@ -11,6 +11,7 @@ var handlebars = require('express3-handlebars')
 var index = require('./routes/index');
 // Example route
 var add = require('./routes/add');
+var addConfirmation = require("./routes/addConfirmation");
 var report = require('./routes/report');
 
 var app = express();
@@ -38,6 +39,7 @@ if ('development' == app.get('env')) {
 app.get('/', index.view);
 // Example route
 app.get('/add', add.view);
+app.get('/addConfirmation', addConfirmation.view);
 app.get('/report', report.view);
 
 http.createServer(app).listen(app.get('port'), function(){
