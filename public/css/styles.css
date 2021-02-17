@@ -91,7 +91,7 @@ a {
     width: 100%;
 }
 
-#add-button, #report-button {
+#add-button, #report-button, #logout-button {
     background-color: lightgray;
     padding: 5px;
     width: 60%;

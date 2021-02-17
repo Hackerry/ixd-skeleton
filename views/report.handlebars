@@ -25,8 +25,9 @@
                     <i class="fas fa-times" id='nav-close'></i>
                     <ul id='nav-bar-list'>
                         <li><a href='/'>Home</a></li>
-                        <li><a href='/add'>Create Activity</a></li>
+                        <li><a href='/add'>Add Activity</a></li>
                         <li><a href='/report'>Report</a></li>
+                        <li><a href='/login'>Log Out</a></li>
                     </ul>
                 </div>
 
@@ -86,12 +87,23 @@
         const hourDay = 24;
 
         // Potentially read from database
-        const color = {
+            
+        // Temporarily comment the colors for now to fit A5 requirements
+        /* const color = {
             "work": "#d15151",
             "school": "#5b935a",
             "family": "#e1c85a",
             "sleep": "#6a59ce",
             "fun": "#94ecff",
+        }; */
+
+        // The temporary color here, will delete later
+        const color = {
+            "work": "#000000",
+            "school": "#222222",
+            "family": "#444444",
+            "sleep": "#666666",
+            "fun": "#888888",
         };
 
         // Passed from .js
