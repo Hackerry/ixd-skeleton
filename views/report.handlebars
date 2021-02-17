@@ -21,11 +21,12 @@
                     </div>
                 </div>
 
-                <div id='nav-bar'>
+                <div id='nav-bar' style='display:none;'>
+                    <i class="fas fa-times" id='nav-close'></i>
                     <ul id='nav-bar-list'>
-                        <li>Home</li>
-                        <li>Create Activity</li>
-                        <li>Report</li>
+                        <li><a href='/'>Home</a></li>
+                        <li><a href='/add'>Create Activity</a></li>
+                        <li><a href='/report'>Report</a></li>
                     </ul>
                 </div>
 
@@ -73,8 +74,14 @@
     <script>
         // Nav bar js
         var navBar = document.getElementById("nav-bar");
-        navBar.
-
+        var hamburgerButton = document.getElementById("hamburger-button");
+        hamburgerButton.onclick = function(e) {
+            navBar.style.display = 'block';
+        }
+        var navClose = document.getElementById("nav-close");
+        navClose.onclick = function(e) {
+            navBar.style.display = 'none';
+        }
 
         const hourDay = 24;
 
