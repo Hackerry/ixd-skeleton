@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/weekly-report.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id='root-div'>
+            <div id='content-div'>
+                <div id='title-bar'>
+                    <div id='back-bar'>
+                        <a href='/'><i class="fas fa-arrow-left" id='back-arrow'></i></a>
+                    </div>
+                    <div id='hamburger-bar'>
+                        <i class="fas fa-bars" id='hamburger-button'></i>
+                    </div>
+                </div>
+
+                <div id='nav-bar' style='display:none;'>
+                    <i class="fas fa-times" id='nav-close'></i>
+                    <ul id='nav-bar-list'>
+                        <li><a href='/'>Home</a></li>
+                        <li><a href='/add'>Add Activity</a></li>
+                        <li><a href='/report'>Report</a></li>
+                        <li><a href='/login'>Log Out</a></li>
+                    </ul>
+                </div>
+
+                <h1>Weekly Report</h1>
+                <div id='options'>
+                    <select id="week">
+                        <option value="1">Week 1</option>
+                        <option value="2">Week 2</option>
+                        <option value="3">Week 3</option>
+                    </select>
+                    <select id="scale">
+                        <option value="average">On average</option>
+                        <option value="total">In total</option>
+                    </select>
+                </div>
+
+                <!-- Dynamically filled -->
+                <canvas id='chart' width=200px height=200px></canvas>
+
+                <!-- Dynamically generated -->
+                <ul id='list'></ul>
+
+                <div id='buttons'>
+                    <select id="chart-type">
+                        <option value="pie">Pie Chart</option>
+                        <option value="bar">Bar Chart</option>
+                    </select>
+                    <br>
+    
+                    <!-- Put as div for now, not sure how to show results yet -->
+                    <div id='detail-button'>
+                        Details
+                    </div>
+                    <br>
+                    <div id='suggestion-button'>
+                        Suggestions
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!-- Script that draws content based on response -->
+    <script>
+        // Nav bar js
+        var navBar = document.getElementById("nav-bar");
+        var hamburgerButton = document.getElementById("hamburger-button");
+        hamburgerButton.onclick = function(e) {
+            navBar.style.display = 'block';
+        }
+        var navClose = document.getElementById("nav-close");
+        navClose.onclick = function(e) {
+            navBar.style.display = 'none';
+        }
+
+        const hourDay = 24;
+
+        // Potentially read from database
+            
+        // Temporarily comment the colors for now to fit A5 requirements
+        /* const color = {
+            "work": "#d15151",
+            "school": "#5b935a",
+            "family": "#e1c85a",
+            "sleep": "#6a59ce",
+            "fun": "#94ecff",
+        }; */
+
+        // The temporary color here, will delete later
+        const color = {
+            "work": "#000000",
+            "school": "#222222",
+            "family": "#444444",
+            "sleep": "#666666",
+            "fun": "#888888",
+        };
+
+        // Passed from .js
+        var activities = {
+            {{#each activities}}
+            {{name}}: {{hours}},
+            {{/each}}
+        };
+
+        // Document ready event
+        $(document).ready(function() {
+            // Draw pie chart
+            drawPieChart();
+
+            // Populate list
+            populateActivitiesList();
+        });
+
+        // Draw activity pie chart
+        function drawPieChart() {
+            var g = document.getElementById('chart').getContext('2d');
+
+            // Angle var, align first activity to 0 degree
+            var startAngle = -0.5*Math.PI;
+
+            // Check hour sum
+            var sum = 0;
+            for(var i in activities) {
+                sum += activities[i];
+            }
+            if(sum !== hourDay) {
+                console.error("Activities sum over 24hrs.");
+                return;
+            }
+
+            // Draw each arc
+            for(var i in activities) {
+                if(!(i in color)) {
+                    console.error("Activity", i, "doesn't have a color associated.");
+                }
+
+                // Draw arc
+                var addAngle = activities[i]/24*2*Math.PI;
+                g.beginPath();
+                g.moveTo(100,100);
+                g.arc(100, 100, 100, startAngle, startAngle + addAngle);
+                g.fillStyle = color[i];
+                g.fill();
+
+                startAngle += addAngle;
+            }
+        }
+    
+        // Populate activities list
+        function populateActivitiesList() {
+            var list = document.getElementById("list");
+
+            for(var i in activities) {
+                var activity = document.createElement("li");
+                var icon = document.createElement("span");
+                activity.className = "list-entry";
+                icon.style.backgroundColor = color[i];
+                activity.innerText = i + ": " + activities[i] + "h/day";
+                activity.prepend(icon);
+                list.appendChild(activity);
+            }
+        }
+    </script>
+</html>
