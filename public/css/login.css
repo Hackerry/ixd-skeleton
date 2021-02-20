@@ -1,0 +1,95 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.home-content {
+    line-height: 25px;
+}
+
+#title-bar {
+    margin-bottom: 8px;
+}
+
+#mob-title {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#root-div {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#content-div {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#login-div {
+    width: 80%;
+    margin: 10px auto;
+}
+
+#login-select {
+    width: 100%;
+}
+
+#login-button, #signup-button {
+    display: inline-block;
+    width: 40%;
+    padding: 5px;
+}
+
+#login-button:hover, #signup-button:hover {
+    cursor: pointer;
+}
+
+#login-title {
+    margin: 15px;
+}
+
+.login-entry {
+    width: 100%;
+    margin: 5px;
+}
+
+.login-label {
+    width: 25%;
+    display: inline-block;
+    text-align: right;
+    font-weight: bold;
+}
+
+#login-submit {
+    border: 2px solid black;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 2px;
+    margin: 40px;
+    width: 60%;
+}
+
+#retype-div {
+    visibility: hidden;
+}
+
+#login-submit:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.login-option-select {
+    background-color: black;
+    color: white;
+}

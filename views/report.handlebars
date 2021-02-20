@@ -2,6 +2,7 @@
     <head>
         <script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/weekly-report.css">
+        <link rel="stylesheet" href="css/nav-bar.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
         <script src="js/jquery.js" type="text/javascript"></script>
@@ -71,19 +72,10 @@
         </div>
     </body>
 
+    <script src='js/navbar.js'></script>
+
     <!-- Script that draws content based on response -->
     <script>
-        // Nav bar js
-        var navBar = document.getElementById("nav-bar");
-        var hamburgerButton = document.getElementById("hamburger-button");
-        hamburgerButton.onclick = function(e) {
-            navBar.style.display = 'block';
-        }
-        var navClose = document.getElementById("nav-close");
-        navClose.onclick = function(e) {
-            navBar.style.display = 'none';
-        }
-
         const hourDay = 24;
 
         // Potentially read from database
