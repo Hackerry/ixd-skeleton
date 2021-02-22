@@ -152,3 +152,18 @@ a {
     display: inline-block;
     margin: 10px 0;
 }
+
+#no-data-div {
+    width: 100%;
+    text-align: center;
+}
+
+#no-data-title {
+    margin: 20px;
+}
+
+#add-button {
+    background-color: lightgray;
+    padding: 5px;
+    display: inline-block;
+}

@@ -1,8 +1,11 @@
 <html>
     <head>
         <script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/ptTimeSelect.js"></script>
         <link rel="stylesheet" href="css/add-activity.css">
         <link rel="stylesheet" href="css/nav-bar.css">
+        <link rel="stylesheet" href="css/ptTimeSelect.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,23 +41,25 @@
                     <div class='form-entry'>
                         <label for="type">Type</label>
                         <select name="type" id="typeInput">
-                            <option value="family">Family</option>
-                            <option value="fun">Fun</option>
-                            <option value="school">School</option>
-                            <option value="work">Work</option>
-                            <option value="other">Other</option>
+                            {{#each options}}
+                            <option value="{{type}}">{{type}}</option>
+                            {{/each}}
                         </select>
                     </div>
                     <div class='form-entry'>
                         <label>Starting Time</label>
-                        <input name='startTime' type='time' id='startTimeInput' />
+                        <input name='startTime' id='startTimeInput' autocomplete="off" />
                     </div>
                     <div class='form-entry'>
                         <label>Stopping time</label>
-                        <input name='endTime' type='time' id='endTimeInput' />
+                        <input name='endTime' id='endTimeInput' autocomplete="off" />
+                        <p id='warning-text'>+1 day</p>
                     </div>
                     <div class='form-entry'>
                         <input type='submit' value='Add' id='form-submit' />
+                    </div>
+                    <div class='form-entry'>
+                        <p id='error-text'></p>
                     </div>
                 </form>
             </div>
@@ -62,4 +67,62 @@
     </body>
 
     <script src='js/navbar.js'></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('input[name="startTime"]').ptTimeSelect();
+            $('input[name="endTime"]').ptTimeSelect();
+
+            // user warning about time day wrap around
+            $('#ptTimeSelectSetButton').click((e) => {
+                var startTime = $('#startTimeInput').val();
+                var endTime = $('#endTimeInput').val();
+                if(startTime !== '' && endTime !== '') {
+                    var parts = startTime.split(/[: ]/);
+                    var startHour = parseInt(parts[0]);
+                    var startMin = parseInt(parts[1]);
+                    var startTime = parts[2];
+                    parts = endTime.split(/[: ]/);
+                    var endHour = parseInt(parts[0]);
+                    var endMin = parseInt(parts[1]);
+                    var endTime = parts[2];
+
+                    if(startHour !== 12 && startTime === 'PM') startHour += 12;
+                    if(endHour !== 12 && endTime === 'PM') endHour += 12;
+                    if(startHour === 12 && startTime === 'AM') startHour = 0;   // 12:00 am is 0:00 am
+                    if(endHour === 12 && endTime === 'AM') endHour = 0;
+                    console.log("Test", startHour, startMin, startTime, endHour, endMin, endTime);
+                    if(startHour > endHour || startHour === endHour && startMin > endMin) {
+                        console.log("Wrap around");
+                        $('#warning-text').css('visibility', 'visible');
+                    } else {
+                        $('#warning-text').css('visibility', 'hidden');
+                    }
+                }
+            });
+
+            // on click submit, check error
+            $('#form-submit').click((e) => {
+                var error = false;
+                if($('#endTimeInput').val().trim() === '') {
+                    $('#error-text').text("Please select end time");
+                    $('#error-text').css("visibility", "visible");
+                    error = true;
+                }
+                if($('#startTimeInput').val().trim() === '') {
+                    $('#error-text').text("Please select start time");
+                    $('#error-text').css("visibility", "visible");
+                    error = true;
+                }
+                if($('#activityNameInput').val().trim() === '') {
+                    $('#error-text').text("Activity name can't be empty");
+                    $('#error-text').css("visibility", "visible");
+                    error = true;
+                }
+                if(error) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 </html>

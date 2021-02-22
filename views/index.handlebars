@@ -13,9 +13,17 @@
 			<div id='title-bar'>
 				<div class="home-content">
 					<h1 id="mob-title">MobTrack</h1>
-					<p>Today is Thursday</p>
-					<p>02/18/21</p>
-					<p>There are 3 activities added so far.</p>
+					<p>Today is {{day}}</p>
+					<p>{{date}}</p>
+					{{#if singleActivity}}
+					<p>There is <span>{{activitiesCount}}</span> activity added so far.</p>
+					{{else}}
+						{{#if noActivity}}
+						<p>No activities added.</p>
+						{{else}}
+						<p>There are <span>{{activitiesCount}}</span> activities added so far.</p>
+						{{/if}}
+					{{/if}}
 				</div>
 			</div>
 			<div id='buttons'>

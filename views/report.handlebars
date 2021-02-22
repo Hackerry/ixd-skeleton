@@ -44,7 +44,7 @@
                         <option value="total">In total</option>
                     </select>
                 </div>
-
+                {{#if hasData}}
                 <!-- Dynamically filled -->
                 <canvas id='chart' width=200px height=200px></canvas>
 
@@ -68,6 +68,14 @@
                     </div>
                     <br>
                 </div>
+                {{else}}
+                <div id="no-data-div">
+                    <h2 id='no-data-title'>There's no data yet!</h2>
+                    <a href='/add'><div id='add-button'>
+                        Add Activity
+                    </div></a>
+                </div>
+                {{/if}}
             </div>
         </div>
     </body>
@@ -78,32 +86,16 @@
     <script>
         const hourDay = 24;
 
-        // Potentially read from database
-            
-        // Temporarily comment the colors for now to fit A5 requirements
-        /* const color = {
-            "work": "#d15151",
-            "school": "#5b935a",
-            "family": "#e1c85a",
-            "sleep": "#6a59ce",
-            "fun": "#94ecff",
-        }; */
-
-        // The temporary color here, will delete later
-        const color = {
-            "work": "#000000",
-            "school": "#222222",
-            "family": "#444444",
-            "sleep": "#666666",
-            "fun": "#888888",
-        };
-
-        // Passed from .js
-        var activities = {
-            {{#each activities}}
-            {{name}}: {{hours}},
+        // Passed from js controller
+        var activities = [
+            {{#each data}}
+            {
+            "name": "{{name}}",
+            "color": "{{color}}",
+            "count": {{count}},
+            },
             {{/each}}
-        };
+        ];
 
         // Document ready event
         $(document).ready(function() {
@@ -121,28 +113,25 @@
             // Angle var, align first activity to 0 degree
             var startAngle = -0.5*Math.PI;
 
-            // Check hour sum
-            var sum = 0;
-            for(var i in activities) {
-                sum += activities[i];
+            // Calculate percent
+            var sum = 0.0;
+            for(var i = 0; i < activities.length; i++) {
+                sum += activities[i]["count"];
             }
-            if(sum !== hourDay) {
-                console.error("Activities sum over 24hrs.");
-                return;
+            for(var i = 0; i < activities.length; i++) {
+                activities[i]["percent"] = activities[i]["count"]/sum;
             }
+            console.log("Calculated percents:", activities, sum);
 
             // Draw each arc
-            for(var i in activities) {
-                if(!(i in color)) {
-                    console.error("Activity", i, "doesn't have a color associated.");
-                }
-
+            for(var i = 0; i < activities.length; i++) {
                 // Draw arc
-                var addAngle = activities[i]/24*2*Math.PI;
+                var addAngle = activities[i]["percent"]*Math.PI*2.0;
+                console.log("Add angle:", addAngle);
                 g.beginPath();
                 g.moveTo(100,100);
                 g.arc(100, 100, 100, startAngle, startAngle + addAngle);
-                g.fillStyle = color[i];
+                g.fillStyle = activities[i]["color"];
                 g.fill();
 
                 startAngle += addAngle;
@@ -153,12 +142,12 @@
         function populateActivitiesList() {
             var list = document.getElementById("list");
 
-            for(var i in activities) {
+            for(var i = 0; i < activities.length; i++) {
                 var activity = document.createElement("li");
                 var icon = document.createElement("span");
                 activity.className = "list-entry";
-                icon.style.backgroundColor = color[i];
-                activity.innerText = i + ": " + activities[i] + "h/day";
+                icon.style.backgroundColor = activities[i]["color"];
+                activity.innerText = activities[i]["name"] + ": " + (activities[i]["count"]/3600).toFixed(2) + "h/day";
                 activity.prepend(icon);
                 list.appendChild(activity);
             }

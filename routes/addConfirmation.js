@@ -1,7 +1,8 @@
+'use strict';
 
-/*
- * GET addConfirmation page.
- */
+const activityDatabaseFile = 'activities.json';
+const activityTypes = require('../activityTypes.json');
+const fs = require('fs');
 
 exports.view = function(request, res){
     var activityName = request.query.activityName;
@@ -11,11 +12,112 @@ exports.view = function(request, res){
 	console.log(activityName, type, startTime, endTime);
 
     var newData = {
+        "error": false,
         "activityName": activityName,
         "type": type,
         "startTime": startTime,
         "endTime": endTime,
     };
 
-    res.render('addConfirmation', newData);
+    // Write to activities file
+    var response = recordActivity(activityName, type, startTime, endTime);
+    if(response === '') {
+        res.render('addConfirmation', newData);
+    } else {
+        res.render('addConfirmation', {
+            "error": true,
+            "reason": response,
+        });
+    }
 };
+
+function recordActivity(name, type, startTime, endTime) {
+    // Sanity checks
+
+    // name can't be empty
+    if(name.trim() === '') {
+        return 'Activity name can\'t be empty';
+    }
+
+    // type must be defined
+    var types = activityTypes["types"];
+    var validType = false;
+    for(var i = 0; i < types.length; i++) {
+        if(types[i]["name"] === type) {
+            validType = true;
+            break;
+        }
+    }
+    if(!validType) {
+        return 'Activity type not valid';
+    }
+
+    // start & end time check
+    if(startTime === '' && endTime === '') {
+        return 'Time can\'t be empty';
+    } else if(startTime === endTime) {
+        return 'Start and end time are the same';
+    }
+
+    var parts = startTime.split(/[: ]/);
+    if(parts.length != 3) return 'Start time ill-formatted'
+    var startHour = parseInt(parts[0]);
+    var startMin = parseInt(parts[1]);
+    var startDay = parts[2];
+    parts = endTime.split(/[: ]/);
+    if(parts.length != 3) return 'End time ill-formatted'
+    var endHour = parseInt(parts[0]);
+    var endMin = parseInt(parts[1]);
+    var endDay = parts[2];
+
+    // Calculate duration
+    var seconds;
+    if(startHour !== 12 && startDay === 'PM') startHour += 12;
+    if(endHour !== 12 && endDay === 'PM') endHour += 12;
+    if(startHour === 12 && startDay === 'AM') startHour = 0;
+    if(endHour === 12 && endDay === 'AM') endHour = 0;
+    if(startHour > endHour || (startHour === endHour && startMin > endMin)) {
+        var hms = startHour + ":" + startMin + ":00";
+        var startT = new Date("1970-01-01 " + hms);
+        hms = endHour + ":" + endMin + ":00";
+        var endT = new Date("1970-01-02 " + hms);
+        seconds = (endT - startT) / 1000;
+    } else {
+        var hms = startHour + ":" + startMin + ":00";
+        var startT = new Date("1970-01-01 " + hms);
+        hms = endHour + ":" + endMin + ":00";
+        var endT = new Date("1970-01-01 " + hms);
+        seconds = (endT - startT) / 1000;
+    }
+
+    // Store information
+    var activityDatabase = JSON.parse(fs.readFileSync(activityDatabaseFile, 'utf8'));
+
+    // TODO store by username
+    var date = new Date();
+    var key = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    // console.log("Store to key:", key);
+    var data = {
+        "name": name,
+        "type": type,
+        "start": startTime,
+        "end": endTime,
+        "duration": seconds,
+    };
+
+    if(!activityDatabase.hasOwnProperty(key)) {
+        activityDatabase[key] = [data];
+    } else {
+        var activities = activityDatabase[key];
+        activities.push(data);
+        activityDatabase[key] = activities;
+    }
+
+    console.log("Updated result:", activityDatabase);
+
+    // Write to file
+    var data = JSON.stringify(activityDatabase);
+    fs.writeFileSync(activityDatabaseFile, data, 'utf8');
+
+    return '';
+}

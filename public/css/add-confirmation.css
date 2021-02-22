@@ -18,3 +18,34 @@ a {
 #content-div {
     width: 100%;
 }
+
+#activity-info {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.info-div {
+    width: 30%;
+    margin: 10px auto;
+    text-align: left;
+}
+
+.info-title {
+    display: block;
+    margin: 10px 0;
+}
+
+.info-content {
+    width: 100%;
+}
+
+#done-button {
+    width: 30%;
+    background-color: lightgray;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+#done-button:hover {
+    cursor: pointer;
+}

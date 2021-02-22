@@ -104,12 +104,30 @@ a {
     height: 30px;
 }
 
+#warning-text {
+    color: #2196f3;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;
+}
+
+#error-text {
+    color: red;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;
+}
+
 #form-submit {
     width: 80%;
     background-color: lightgray;
     padding: 5px;
     border: none;
     font-size: 1.2em;
+}
+
+#form-submit:hover {
+    cursor: pointer;
 }
 
 label {
