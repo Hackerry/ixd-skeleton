@@ -60,15 +60,18 @@ a {
 }
 
 .login-entry {
-    width: 100%;
-    margin: 5px;
+    width: 60%;
+    margin: 5px auto;
 }
 
 .login-label {
-    width: 25%;
-    display: inline-block;
-    text-align: right;
+    text-align: left;
     font-weight: bold;
+    display: block;
+}
+
+.login-entry input {
+    width: 100%;
 }
 
 #login-submit {

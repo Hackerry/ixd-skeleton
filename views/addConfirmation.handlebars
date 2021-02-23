@@ -16,7 +16,7 @@
                         <li><a href='/'>Home</a></li>
                         <li><a href='/add'>Add Activity</a></li>
                         <li><a href='/report'>Report</a></li>
-                        <li><a href='/login'>Log Out</a></li>
+                        <li><a href='/'>Log Out</a></li>
                     </ul>
                 </div>
 
@@ -58,4 +58,15 @@
             </div>
         </div>
     </body>
+
+    <script src='js/cookies.js'></script>
+	<script>
+		var username = getCookie('username', document.cookie);
+		if(username === '') {
+			// Not logged in
+			window.location.href = '/';
+		} else {
+			document.getElementById('username').innerText = username;
+		}
+	</script>
 </html>

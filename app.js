@@ -12,7 +12,7 @@ var index = require('./routes/index');
 // Example route
 var add = require('./routes/add');
 var report = require('./routes/report');
-var login = require('./routes/login');
+var home = require('./routes/home');
 var addConfirmation = require('./routes/addConfirmation');
 var userAction = require('./routes/userAction');
 
@@ -42,7 +42,7 @@ app.get('/', index.view);
 // Example route
 app.get('/add', add.view);
 app.get('/report', report.view);
-app.get('/login', login.view);
+app.get('/home', home.view);
 app.get('/addConfirmation', addConfirmation.view);
 app.get('/userSignUp', userAction.signUpAction);
 app.get('/userLogIn', userAction.logInAction);
