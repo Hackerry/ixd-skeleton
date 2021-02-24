@@ -1,0 +1,105 @@
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#root-div {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+#content-div {
+    width: 100%;
+}
+
+#title-bar {
+    font-size: 2em;
+    margin-top: 10px;
+}
+
+#hamburger-bar {
+    width: 90%;
+    display: inline-block;
+    box-sizing: content-box;
+}
+
+#back-bar {
+    text-align: left;
+}
+
+#hamburger-bar {
+    text-align: right;
+}
+
+#hamburger-button {
+    padding-right: 20px;
+}
+
+#hamburger-button:hover {
+    cursor: pointer;
+}
+
+#nav-bar {
+    position: absolute;
+    right: 0;
+    padding-right: 10%;
+    background-color: black;
+    color: white;
+    height: 100%;
+    top: 0;
+    text-align: left;
+    padding-top: 100px;
+}
+
+#nav-bar-list {
+    list-style: none;
+}
+
+#nav-bar-list li {
+    padding-left: 10px;
+    line-height: 2em;
+}
+
+#nav-bar-list li a {
+    text-decoration: none;
+    color: white;
+}
+
+#nav-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
+}
+
+#setting-form {
+    width: 80%;
+}
+
+#setting-div {
+    width: 100%;
+    margin: 20px;
+}
+
+#setting-saved-text {
+    color: green;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+#save-button {
+    background-color: lightgray;
+    display: inline-block;
+    padding: 5px;
+}

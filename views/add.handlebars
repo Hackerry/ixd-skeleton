@@ -64,6 +64,14 @@
                 </form>
             </div>
         </div>
+
+        <div id='add-confirmation-top'>
+            <div id='add-confirmation-div'>
+                Are you sure you want to submit the activity?<br>
+                <div id='add-confirmation-submit'>Submit</div>
+                <div id='add-confirmation-cancel'>Cancel</div>
+            </div>
+        </div>
     </body>
 
     <script src='js/navbar.js'></script>
@@ -73,8 +81,6 @@
 		if(username === '') {
 			// Not logged in
 			window.location.href = '/';
-		} else {
-			document.getElementById('username').innerText = username;
 		}
 	</script>
 
@@ -113,25 +119,31 @@
 
             // on click submit, check error
             $('#form-submit').click((e) => {
-                var error = false;
+                e.preventDefault();
+
                 if($('#endTimeInput').val().trim() === '') {
                     $('#error-text').text("Please select end time");
                     $('#error-text').css("visibility", "visible");
-                    error = true;
                 }
                 if($('#startTimeInput').val().trim() === '') {
                     $('#error-text').text("Please select start time");
                     $('#error-text').css("visibility", "visible");
-                    error = true;
                 }
                 if($('#activityNameInput').val().trim() === '') {
                     $('#error-text').text("Activity name can't be empty");
                     $('#error-text').css("visibility", "visible");
-                    error = true;
                 }
-                if(error) {
-                    e.preventDefault();
-                }
+
+                // Show confirmation
+                $('#add-confirmation-top').css('visibility', 'visible');
+            });
+
+            // Register confirmation buttons
+            $('#add-confirmation-submit').click((e) => {
+                $("#activity-form").submit();
+            });
+            $('#add-confirmation-cancel').click((e) => {
+                $('#add-confirmation-top').css('visibility', 'hidden');
             });
         });
     </script>
