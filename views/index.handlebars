@@ -25,15 +25,17 @@
 					<h2 id='login-title'>Log In</h2>
 					<div class='login-entry'>
 						<label class='login-label'>Username: </label>
-						<input type='text' id='username'/>
+						<input type='text' id='username' placeholder='Enter email or username' />
 					</div>
 					<div class='login-entry'>
 						<label class='login-label'>Password: </label>
-						<input type='password' id='password' />
+						<input type='password' id='password' placeholder="Password" />
+						<i class="far fa-eye" id='password-visible'></i>
 					</div>
 					<div class='login-entry' id='retype-div'>
 						<label class='login-label'>Confirm: </label>
-						<input type='password' id='password-retype' />
+						<input type='password' id='password-retype' placeholder="Confirm password" />
+						<i class="far fa-eye" id='password-retype-visible'></i>
 					</div>
 					<div id='login-submit'>Log In</div>
 				</div>
