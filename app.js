@@ -17,6 +17,7 @@ var addConfirmation = require('./routes/addConfirmation');
 var userAction = require('./routes/userAction');
 var settings = require('./routes/settings');
 var suggestions = require('./routes/suggestions');
+var help = require('./routes/help');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.get('/', index.view);
 app.get('/add', add.view);
 app.get('/report', report.view);
 app.get('/home', home.view);
+app.get('/help', help.view);
 app.get('/addConfirmation', addConfirmation.view);
 app.get('/userSignUp', userAction.signUpAction);
 app.get('/userLogIn', userAction.logInAction);
