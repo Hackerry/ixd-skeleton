@@ -1,0 +1,58 @@
+const activityUtil = require("../public/js/activities.js");
+
+exports.view = function (req, res) {
+    var username = req.cookies.username;
+    var week = req.query.week;
+
+    var data = {};
+
+    var activityData = activityUtil.getActivity(username);
+
+    var sum = 0;
+    // Force average
+    for (var i in activityData) {
+        activityData[i].count[week] /= (7*3600);
+        sum += activityData[i].count[week];
+    }
+    if (sum == 0) {
+        data['hasData'] = false;
+    } else {
+        data['hasData'] = true;
+    }
+
+    // Generate suggestions
+    var suggestions = [];
+    var workHour, familyHour, funHour, schoolHour, workHour, otherHour;
+    for(var i in activityData) {
+        if(activityData[i].name === 'Work')
+            workHour = activityData[i].count[week];
+        else if(activityData[i].name === 'Fun')
+            funHour = activityData[i].count[week];
+        else if(activityData[i].name === 'Family')
+            familyHour = activityData[i].count[week];
+        else if(activityData[i].name === 'School')
+            schoolHour = activityData[i].count[week];
+        else if(activityData[i].name === 'Other')
+            otherHour = activityData[i].count[week];
+    }
+    // console.log(workHour, funHour, familyHour, schoolHour, otherHour, sum);
+    if (sum > 24) {
+        suggestions.push("hmmm something wrong ?");
+    }
+    if (workHour + schoolHour > 12) {
+        suggestions.push("need less work and / or school time");
+    }
+    if (funHour < 4) {
+        suggestions.push("need more fun time");
+    }
+    else {
+        suggestions.push("good:) !!!");
+    }
+
+    // Remove types that have no hours
+    data['suggestions'] = suggestions;
+
+    console.log("Suggestions generated:", suggestions);
+
+    res.render('suggestions', data);
+}

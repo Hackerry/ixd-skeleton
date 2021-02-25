@@ -91,82 +91,13 @@ a {
     font-size: 1.2em;
 }
 
-#options {
-    width: 100%;
-    margin: 10px 0;
-}
-
-#week, #scale {
-    background-color: lightgray;
-    box-sizing: content-box;
-    border: none;
-    padding: 5px;
-    text-align: center;
-}
-
-#chart {
-    margin: 20px 0;
-}
-
-#list {
-    list-style: none;
+#suggestions-div {
+    width: 80%;
     margin: 20px auto;
 }
 
-.list-entry {
+#suggestions-list {
     text-align: left;
-    width: 300px;
+    width: 60%;
     margin: 0 auto;
-    padding-left: 100px;
-    font-size: 1.2em;
-}
-
-.list-entry span {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border: 1px solid black;
-    box-sizing: border-box;
-    margin-right: 10px;
-}
-
-#buttons {
-    width: 100%;
-}
-
-#chart-type {
-    width: 60%;
-    padding: 5px;
-    box-sizing: content-box;
-    background-color: lightgray;
-    border: none;
-    text-align: center;
-    margin: 10px 0;
-}
-
-#detail-button, #suggestion-button {
-    background-color: lightgray;
-    padding: 5px;
-    width: 60%;
-    display: inline-block;
-    margin: 10px 0;
-}
-
-#has-data-div {
-    width: 100%;
-}
-
-#no-data-div {
-    width: 100%;
-    text-align: center;
-}
-
-#no-data-title {
-    margin: 20px;
-}
-
-#add-button {
-    background-color: lightgray;
-    padding: 5px;
-    display: inline-block;
 }

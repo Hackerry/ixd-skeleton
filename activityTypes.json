@@ -1,0 +1,24 @@
+{
+    "types": [
+        {
+            "name": "Family",
+            "color": "#e1c85a"
+        },
+        {
+            "name": "Fun",
+            "color": "#94ecff"
+        },
+        {
+            "name": "School",
+            "color": "#5b935a"
+        },
+        {
+            "name": "Work",
+            "color": "#d15151"
+        },
+        {
+            "name": "Other",
+            "color": "#6a59ce"
+        }
+    ]
+}
