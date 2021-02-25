@@ -35,47 +35,46 @@
                 <h1>Weekly Report</h1>
                 <div id='options'>
                     <select id="week">
-                        <option value="1">Week 1</option>
-                        <option value="2">Week 2</option>
-                        <option value="3">Week 3</option>
+                        <option value="0">This Week</option>
+                        <option value="1">Last Week</option>
+                        <option value="2">Week before Last</option>
                     </select>
                     <select id="scale">
                         <option value="average">On average</option>
                         <option value="total">In total</option>
                     </select>
                 </div>
-                {{#if hasData}}
-                <!-- Dynamically filled -->
-                <canvas id='chart' width=200px height=200px></canvas>
+                
+                <div id='has-data-div'>
+                    <h3>Report starts on Sunday</h3>
+                    <!-- Dynamically filled -->
+                    <canvas id='chart' width=200px height=200px></canvas>
 
-                <!-- Dynamically generated -->
-                <ul id='list'></ul>
+                    <!-- Dynamically generated -->
+                    <ul id='list'></ul>
 
-                <div id='buttons'>
-                    <select id="chart-type">
-                        <option value="pie">Pie Chart</option>
-                        <option value="bar">Bar Chart</option>
-                    </select>
-                    <br>
-    
-                    <!-- Put as div for now, not sure how to show results yet -->
-                    <div id='detail-button'>
-                        Details
+                    <div id='buttons'>
+                        <select id="chart-type">
+                            <option value="pie">Pie Chart</option>
+                        </select>
+                        <br>
+        
+                        <!-- Put as div for now, not sure how to show results yet -->
+                        <div id='detail-button'>
+                            Details
+                        </div>
+                        <br>
+                        <div id='suggestion-button'>
+                            Suggestions
+                        </div>
+                        <br>
                     </div>
-                    <br>
-                    <div id='suggestion-button'>
-                        Suggestions
-                    </div>
-                    <br>
                 </div>
-                {{else}}
+
+                <!-- No data div -->
                 <div id="no-data-div">
-                    <h2 id='no-data-title'>There's no data yet!</h2>
-                    <a href='/add'><div id='add-button'>
-                        Add Activity
-                    </div></a>
+                    <h2 id='no-data-title'>There's no data!</h2>
                 </div>
-                {{/if}}
             </div>
         </div>
     </body>
@@ -87,8 +86,6 @@
 		if(username === '') {
 			// Not logged in
 			window.location.href = '/';
-		} else {
-			document.getElementById('username').innerText = username;
 		}
 	</script>
 
@@ -96,29 +93,43 @@
     <script>
         const hourDay = 24;
 
-        // Passed from js controller
-        var activities = [
+        // Read activities
+        const activities = [
             {{#each data}}
             {
-            "name": "{{name}}",
-            "color": "{{color}}",
-            "count": {{count}},
+                "name": "{{name}}",
+                "color": "{{color}}",
+                {{#each count}}
+                "{{@index}}": {{this}},
+                {{/each}}
             },
             {{/each}}
         ];
 
-        // Document ready event
-        $(document).ready(function() {
-            // Draw pie chart
-            drawPieChart();
+        function update() {
+            var changeWeek = $('#week').val();
+            var average = ($('#scale').val() === 'average');
 
-            // Populate list
-            populateActivitiesList();
-        });
+            // Draw pie chart
+            if(drawPieChart(changeWeek)) {
+                populateActivitiesList(changeWeek, average);
+                $('#no-data-div').css('display', 'none');
+                $('#has-data-div').css('display', 'block');
+            } else {
+                $('#no-data-div').css('display', 'block');
+                $('#has-data-div').css('display', 'none');
+            }
+        }
+
+        // Document ready event
+        $(document).ready(() => update());
 
         // Draw activity pie chart
-        function drawPieChart() {
-            var g = document.getElementById('chart').getContext('2d');
+        function drawPieChart(weekVal) {
+            var canvas = document.getElementById('chart');
+            var g = canvas.getContext('2d');
+
+            g.clearRect(0, 0, canvas.width, canvas.height);
 
             // Angle var, align first activity to 0 degree
             var startAngle = -0.5*Math.PI;
@@ -126,18 +137,23 @@
             // Calculate percent
             var sum = 0.0;
             for(var i = 0; i < activities.length; i++) {
-                sum += activities[i]["count"];
+                sum += activities[i][weekVal];
             }
+
+            // No data
+            if(sum === 0) {
+                return false;
+            }
+
             for(var i = 0; i < activities.length; i++) {
-                activities[i]["percent"] = activities[i]["count"]/sum;
+                activities[i]["percent"] = activities[i][weekVal]/sum;
             }
-            console.log("Calculated percents:", activities, sum);
+            // console.log("Calculated percents:", activities, sum);
 
             // Draw each arc
             for(var i = 0; i < activities.length; i++) {
                 // Draw arc
                 var addAngle = activities[i]["percent"]*Math.PI*2.0;
-                console.log("Add angle:", addAngle);
                 g.beginPath();
                 g.moveTo(100,100);
                 g.arc(100, 100, 100, startAngle, startAngle + addAngle);
@@ -146,21 +162,41 @@
 
                 startAngle += addAngle;
             }
+
+            return true;
         }
     
         // Populate activities list
-        function populateActivitiesList() {
+        function populateActivitiesList(weekVal, average) {
             var list = document.getElementById("list");
+            list.innerHTML = '';
 
             for(var i = 0; i < activities.length; i++) {
-                var activity = document.createElement("li");
-                var icon = document.createElement("span");
-                activity.className = "list-entry";
-                icon.style.backgroundColor = activities[i]["color"];
-                activity.innerText = activities[i]["name"] + ": " + (activities[i]["count"]/3600).toFixed(2) + "h/day";
-                activity.prepend(icon);
-                list.appendChild(activity);
+                if(activities[i][weekVal] !== 0) {
+                    var activity = document.createElement("li");
+                    var icon = document.createElement("span");
+                    activity.className = "list-entry";
+                    icon.style.backgroundColor = activities[i]["color"];
+                    if(average) {
+                        activity.innerText = activities[i]["name"] + ": " + (activities[i][weekVal]/(3600 * 7)).toFixed(2) + " hrs/day";
+                    } else {
+                        activity.innerText = activities[i]["name"] + ": " + (activities[i][weekVal]/3600).toFixed(2) + " hrs";
+                    }
+                    activity.prepend(icon);
+                    list.appendChild(activity);
+                }
             }
         }
+
+        // Register click dropdown
+        $('#week').on('change', () => update());
+
+        // Change average or total
+        $('#scale').on('change', () => update());
+
+        // Suggestions generate
+        $('#suggestion-button').click(() => {
+            window.location.href = '/suggestions?week=' + $('#week').val();
+        });
     </script>
 </html>

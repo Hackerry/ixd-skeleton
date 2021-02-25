@@ -17,12 +17,12 @@
 						<p>Today is {{day}}</p>
 						<p>{{date}}</p>
 						{{#if singleActivity}}
-						<p>There is <span>{{activitiesCount}}</span> activity added so far.</p>
+						<p>There is <span>{{activitiesCount}}</span> activity added so far today.</p>
 						{{else}}
 							{{#if noActivity}}
-							<p>No activities added.</p>
+							<p>No activities added today.</p>
 							{{else}}
-							<p>There are <span>{{activitiesCount}}</span> activities added so far.</p>
+							<p>There are <span>{{activitiesCount}}</span> activities added so far today.</p>
 							{{/if}}
 						{{/if}}
 					</div>
@@ -50,8 +50,7 @@
 		if(username === '') {
 			// Not logged in
 			window.location.href = '/';
-		} else {
-			document.getElementById('username').innerText = username;
 		}
+		document.getElementById('username').innerText = username;
 	</script>
 </html>

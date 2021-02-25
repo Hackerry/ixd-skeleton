@@ -1,10 +1,11 @@
 'use strict';
 
 const activityDatabaseFile = 'activities.json';
-const activityTypes = require('../activityTypes.json');
+const activityTypesFile = 'activityTypes.json';
 const fs = require('fs');
 
 exports.view = function(request, res){
+    var username = request.cookies.username;
     var activityName = request.query.activityName;
     var type = request.query.type;
 	var startTime = request.query.startTime;
@@ -20,7 +21,7 @@ exports.view = function(request, res){
     };
 
     // Write to activities file
-    var response = recordActivity(activityName, type, startTime, endTime);
+    var response = recordActivity(username, activityName, type, startTime, endTime);
     if(response === '') {
         res.render('addConfirmation', newData);
     } else {
@@ -31,15 +32,16 @@ exports.view = function(request, res){
     }
 };
 
-function recordActivity(name, type, startTime, endTime) {
+function recordActivity(username, activityName, type, startTime, endTime) {
     // Sanity checks
 
-    // name can't be empty
-    if(name.trim() === '') {
+    // Activity name can't be empty
+    if(activityName.trim() === '') {
         return 'Activity name can\'t be empty';
     }
 
     // type must be defined
+    var activityTypes = JSON.parse(fs.readFileSync(activityTypesFile, 'utf8'));
     var types = activityTypes["types"];
     var validType = false;
     for(var i = 0; i < types.length; i++) {
@@ -93,25 +95,33 @@ function recordActivity(name, type, startTime, endTime) {
     // Store information
     var activityDatabase = JSON.parse(fs.readFileSync(activityDatabaseFile, 'utf8'));
 
-    // TODO store by username
+    // Construct activity data
     var date = new Date();
-    var key = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    var key = (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
     // console.log("Store to key:", key);
     var data = {
-        "name": name,
+        "name": activityName,
         "type": type,
         "start": startTime,
         "end": endTime,
         "duration": seconds,
     };
 
-    if(!activityDatabase.hasOwnProperty(key)) {
-        activityDatabase[key] = [data];
-    } else {
-        var activities = activityDatabase[key];
-        activities.push(data);
-        activityDatabase[key] = activities;
+    // Store by username
+    var userActivities = {};
+    if(activityDatabase.hasOwnProperty(username)) {
+        userActivities = activityDatabase[username];
     }
+
+    if(!userActivities.hasOwnProperty(key)) {
+        userActivities[key] = [data];
+    } else {
+        var activities = userActivities[key];
+        activities.push(data);
+        userActivities[key] = activities;
+    }
+
+    activityDatabase[username] = userActivities;
 
     console.log("Updated result:", activityDatabase);
 

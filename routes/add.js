@@ -1,4 +1,5 @@
-const activityTypes = require('../activityTypes.json');
+const activityTypesFile = 'activityTypes.json';
+const fs = require('fs');
 
 /*
  * GET add page.
@@ -7,6 +8,8 @@ const activityTypes = require('../activityTypes.json');
 exports.view = function(req, res){
     var data = {};
     var array = [];
+    var activityTypes = JSON.parse(fs.readFileSync(activityTypesFile, 'utf8'));
+    console.log(activityTypes);
     var types = activityTypes["types"];
     for(var i = 0; i < types.length; i++) {
         var activityType = types[i];
