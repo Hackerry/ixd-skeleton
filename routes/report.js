@@ -10,7 +10,7 @@ exports.view = function(req, res){
     var data = {};
 
     // Remove types that have no hours
-    data['data'] = activityUtil.getActivity(username);
+    data['data'] = activityUtil.getActivitySummary(username);
 
     console.log("Data gathered:", data['data']);
 

@@ -29,7 +29,7 @@ a {
 }
 
 #back-bar, #hamburger-bar {
-    width: 48%;
+    width: 90%;
     display: inline-block;
     box-sizing: content-box;
 }

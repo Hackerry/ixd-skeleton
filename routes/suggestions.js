@@ -6,7 +6,7 @@ exports.view = function (req, res) {
 
     var data = {};
 
-    var activityData = activityUtil.getActivity(username);
+    var activityData = activityUtil.getActivitySummary(username);
 
     var sum = 0;
     // Force average

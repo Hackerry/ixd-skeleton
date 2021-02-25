@@ -29,7 +29,7 @@ a {
 }
 
 #back-bar, #hamburger-bar {
-    width: 48%;
+    width: 90%;
     display: inline-block;
     box-sizing: content-box;
 }
@@ -100,4 +100,10 @@ a {
     text-align: left;
     width: 60%;
     margin: 0 auto;
+}
+
+#back-button {
+    display: inline-block;
+    background-color: lightgray;
+    padding: 5px 10px;
 }
