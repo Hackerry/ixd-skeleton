@@ -1,9 +1,0 @@
-{
-    "activities": [
-        {"name": "work", "hours": 9},
-        {"name": "school", "hours": 7},
-        {"name": "family", "hours": 4},
-        {"name": "sleep", "hours": 4},
-        {"name": "fun", "hours": 0}
-    ]
-}

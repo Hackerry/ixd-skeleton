@@ -1,5 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 * {
@@ -104,12 +106,31 @@ a {
     height: 30px;
 }
 
+#warning-text {
+    color: red;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;
+}
+
+#error-text {
+    color: red;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;
+}
+
 #form-submit {
     width: 80%;
     background-color: lightgray;
     padding: 5px;
     border: none;
     font-size: 1.2em;
+}
+
+#form-submit:hover {
+    cursor: pointer;
 }
 
 label {
@@ -124,6 +145,39 @@ input, select {
 
 input {
     padding: 2px 5px;
+}
+
+#add-confirmation-top {
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0.5, 0.5, 0.5, 0.4);
+    visibility: hidden;
+}
+
+#add-confirmation-div {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 70%;
+    padding: 5%;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+#add-confirmation-submit, #add-confirmation-cancel {
+    width: 40%;
+    display: inline-block;
+    margin: 50px 5px 0 5px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 @media only screen and (max-width: 1000px) {
