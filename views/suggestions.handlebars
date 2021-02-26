@@ -14,9 +14,6 @@
         <div id='root-div'>
             <div id='content-div'>
                 <div id='title-bar'>
-                    <div id='back-bar'>
-                        <a href='/report'><i class="fas fa-arrow-left" id='back-arrow'></i></a>
-                    </div>
                     <div id='hamburger-bar'>
                         <i class="fas fa-bars" id='hamburger-button'></i>
                     </div>
@@ -28,6 +25,8 @@
                         <li><a href='/home'>Home</a></li>
                         <li><a href='/add'>Add Activity</a></li>
                         <li><a href='/report'>Report</a></li>
+                        <li><a href='/details'>All Activities</a></li>
+                        <li><a href='/help'>Help</a></li>
                         <li><a href='/'>Log Out</a></li>
                     </ul>
                 </div>
@@ -43,6 +42,9 @@
                     {{else}}
                     <p>No suggestions</p>
                     {{/if}}
+                    <a href='/report'><div id='back-button'>
+                        Back
+                    </div></a>
                 </div>
             </div>
         </div>

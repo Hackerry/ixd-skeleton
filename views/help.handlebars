@@ -12,36 +12,17 @@
 			<div id='content-div'>
 				<div id='title-bar'>
 					<div class="home-content">
-						<h1 id="mob-title">MobTrack</h1>
-						<p>Hi! <b><span id='username'></span></b></p>
-						<p>Today is {{day}}</p>
-						<p>{{date}}</p>
-						{{#if singleActivity}}
-						<p>There is <span>{{activitiesCount}}</span> activity added so far today.</p>
-						{{else}}
-							{{#if noActivity}}
-							<p>No activities added today.</p>
-							{{else}}
-							<p>There are <span>{{activitiesCount}}</span> activities added so far today.</p>
-							{{/if}}
-						{{/if}}
+						<h1 id="mob-title">Help</h1>
+                        <p>Since our app is new, we would like to have some guidances in order to have a better idea of how to use the app.</p>
+                        <p>1. An activity cannot exceed 24 hours per day</p>
+                        <p>2. The total amount of hours from the collection of activities cannot exceed 24 hours per day</p>
+                        <p>3. You can flexibly go to different pages by click/tapping the menu button on the top right, and see the options of where to go</p>
 					</div>
 				</div>
 				<div id='buttons'>
-					<a href='/add'>
-						<div id='add-button'>Add Activity</div>
+					<a href='/home'>
+						<div id='add-button'>Home</div>
 					</a>
-					<br>
-					<a href='/report'>
-						<div id='report-button'>Report</div>
-					</a>
-					<a href='/help'>
-						<div id='report-button'>Help</div>
-					</a>
-					<a href='/'>
-						<div id='logout-button'>Log Out</div>
-					</a>
-					<br>
 				</div>
 			</div>
 		</div>
