@@ -1,5 +1,1 @@
-{"harry":{
-    "2/25/2021":[{"name":"Sleep","type":"Family","start":"1:00 AM","end":"8:00 AM","duration":25200}],
-    "2/10/2021":[{"name":"COGS 120","type":"School","start":"10:00 AM","end":"4:00 PM","duration":21600}],
-    "7/10/2020":[{"name":"Work","type":"Work","start":"1:00 AM","end":"8:00 AM","duration":25200}]
-}}
+{"harry":{"2/25/2021":[{"name":"Sleep","type":"Family","start":"1:00 AM","end":"8:00 AM","duration":25200}],"2/10/2021":[{"name":"COGS 120","type":"School","start":"10:00 AM","end":"4:00 PM","duration":21600}],"7/10/2020":[{"name":"Work","type":"Work","start":"1:00 AM","end":"8:00 AM","duration":25200}]},"cogs121":{"2/25/2021":[{"name":"Grocery ","type":"Family","start":"8:00 PM","end":"10:00 PM","duration":7200}]}}
