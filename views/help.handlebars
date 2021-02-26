@@ -3,6 +3,7 @@
 		<title>Test Page</title>
 		<script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/nav-bar.css">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,29 @@
 		<div id='root-div'>
 			<div id='content-div'>
 				<div id='title-bar'>
-					<div class="home-content">
-						<h1 id="mob-title">Help</h1>
-                        <p>Since our app is new, we would like to have some guidances in order to have a better idea of how to use the app.</p>
-                        <p>1. An activity cannot exceed 24 hours per day</p>
-                        <p>2. The total amount of hours from the collection of activities cannot exceed 24 hours per day</p>
-                        <p>3. You can flexibly go to different pages by click/tapping the menu button on the top right, and see the options of where to go</p>
-					</div>
+                    <div id='hamburger-bar'>
+                        <i class="fas fa-bars" id='hamburger-button'></i>
+                    </div>
+                </div>
+
+				<div id='nav-bar' style='display:none;'>
+                    <i class="fas fa-times" id='nav-close'></i>
+                    <ul id='nav-bar-list'>
+                        <li><a href='/home'>Home</a></li>
+                        <li><a href='/add'>Add Activity</a></li>
+                        <li><a href='/report'>Report</a></li>
+                        <li><a href='/details'>All Activities</a></li>
+                        <li><a href='/help'>Help</a></li>
+                        <li><a href='/'>Log Out</a></li>
+                    </ul>
+                </div>
+				
+				<div class="home-content">
+					<h1 id="mob-title">Help</h1>
+					<p>Since our app is new, we would like to have some guidances in order to have a better idea of how to use the app.</p>
+					<p>1. An activity cannot exceed 24 hours per day</p>
+					<p>2. The total amount of hours from the collection of activities cannot exceed 24 hours per day</p>
+					<p>3. You can flexibly go to different pages by click/tapping the menu button on the top right, and see the options of where to go</p>
 				</div>
 				<div id='buttons'>
 					<a href='/home'>
@@ -28,6 +45,7 @@
 		</div>
 	</body>
 
+	<script src='js/navbar.js'></script>
 	<script src='js/cookies.js'></script>
 	<script>
 		var username = getCookie('username', document.cookie);
@@ -35,6 +53,5 @@
 			// Not logged in
 			window.location.href = '/';
 		}
-		document.getElementById('username').innerText = username;
 	</script>
 </html>
