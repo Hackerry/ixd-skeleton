@@ -99,3 +99,15 @@ a {
     margin: 10px 0;
 }
 
+#help-content {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+@media only screen and (min-width: 600px) {
+    #help-content {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
