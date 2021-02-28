@@ -18,6 +18,7 @@ var userAction = require('./routes/userAction');
 var settings = require('./routes/settings');
 var suggestions = require('./routes/suggestions');
 var help = require('./routes/help');
+var details = require('./routes/details');
 
 var app = express();
 
@@ -52,8 +53,11 @@ app.get('/userSignUp', userAction.signUpAction);
 app.get('/userLogIn', userAction.logInAction);
 app.get('/settings', settings.view);
 app.get('/userRetrieveSettings', userAction.retrieveSettings);
+app.get('/userGetActivities', userAction.getActivities);
+app.get('/userDeleteActivity', userAction.deleteActivity);
 app.get('/userSetSettings', userAction.setSettings);
 app.get('/suggestions', suggestions.view);
+app.get('/details', details.view);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

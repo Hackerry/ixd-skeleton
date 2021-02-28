@@ -5,7 +5,7 @@ const fs = require("fs");
 const ONE_DAY_TIME = 1000 * 60 * 60 * 24;
 const WEEK_TO_GEN = 3;
 
-function getActivity(username) {
+function getActivitySummary(username) {
     // Get user setting start date
     var allUserActivities = JSON.parse(fs.readFileSync(activitiesFile, 'utf8'));
     var activityTypes = JSON.parse(fs.readFileSync(activityTypesFile, 'utf8'));
@@ -59,4 +59,72 @@ function getActivity(username) {
     return typeData;
 }
 
-exports.getActivity = getActivity;
+function getActivites(username) {
+    // Get user setting start date
+    var allUserActivities = JSON.parse(fs.readFileSync(activitiesFile, 'utf8'));
+
+    // Collect activities
+    var today = new Date();
+    today = new Date((today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear());
+
+    // Generate weekly report
+    var temp = {};
+    var userActivities = allUserActivities[username];
+    for (var date in userActivities) {
+        var userActivity = userActivities[date];
+
+        // Calculate how many day prior the activities are for
+        var lastDate = new Date(date);
+        var diffTime = today - lastDate;
+        var diffDays = Math.ceil(diffTime / ONE_DAY_TIME);
+
+        // Store activities by type
+        var data = {
+            "date": date,
+            "activities": userActivity,
+        };
+        temp[diffDays] = data;
+    }
+
+    // Sort by most recent
+    var length = Object.keys(temp).length;
+    var sortedData = [];
+    for(var i = 0; sortedData.length < length; i++) {
+        if(temp.hasOwnProperty(i)) {
+            var data = {
+                "date": temp[i]['date'],
+                "activities": temp[i]['activities'],
+            };
+            sortedData.push(data);
+        }
+    }
+
+    console.log("Sorted data:", sortedData);
+
+    return sortedData;
+}
+
+function deleteActivity(username, date, index) {
+    // Get user setting start date
+    var allUserActivities = JSON.parse(fs.readFileSync(activitiesFile, 'utf8'));
+
+    // Find date and delete based on entry
+    var activities = allUserActivities[username];
+    if(activities.hasOwnProperty(date)) {
+        activities[date].splice(index, 1);
+
+        // If empty, delete entry
+        if(activities[date].length == 0) {
+            delete activities[date];
+        }
+
+        var data = JSON.stringify(allUserActivities);
+        fs.writeFileSync(activitiesFile, data, 'utf8');
+    }
+
+    return getActivites(username);
+}
+
+exports.getActivitySummary = getActivitySummary;
+exports.getActivites = getActivites;
+exports.deleteActivity = deleteActivity;

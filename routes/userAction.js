@@ -3,6 +3,8 @@
 const userDatabaseFile = 'users.json';
 const fs = require('fs');
 
+const activityUtil = require("../public/js/activities.js");
+
 exports.signUpAction = function(req, res){
     var username = req.query.username;
     var password = req.query.password;
@@ -53,6 +55,26 @@ exports.logInAction = function(req, res){
         });
     }
 };
+
+exports.getActivities = function(req, res) {
+    var username = req.query.username;
+
+    res.json({
+        "success": true,
+        "activities": activityUtil.getActivites(username),
+    });
+}
+
+exports.deleteActivity = function(req, res) {
+    var username = req.query.username;
+    var date = req.query.date;
+    var index = req.query.index;
+
+    res.json({
+        "success": true,
+        "activities": activityUtil.deleteActivity(username, date, index),
+    });
+}
 
 exports.retrieveSettings = function(req, res) {
     var username = req.query.username;

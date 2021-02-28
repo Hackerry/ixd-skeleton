@@ -1,0 +1,135 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#root-div {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#content-div {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#details-title {
+    margin-top: 50px;
+}
+
+#activities-list {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.activities-div {
+    width: 100%;
+    text-align: left;
+    margin: 10px auto;
+    border: 2px solid black;
+    padding: 0 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.activities-date {
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 2px dashed;
+    margin: 15px 0;
+}
+
+.activities-title {
+    display: inline-block;
+    width: 75%;
+    margin: 10px 0;
+}
+
+.activities-time {
+    margin: 15px 0;
+    width: 75%;
+    display: inline-block;
+}
+
+.activities-duration {
+    display: inline-block;
+}
+
+.activity-delete-button {
+    position: absolute;
+    display: inline-block;
+    top: 3px;
+    right: 6px;
+    font-size: 1.2em;
+}
+
+#no-activities, #home-button {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#no-activities {
+    visibility: hidden;
+}
+
+#home-button {
+    background-color: lightgray;
+    display: inline-block;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#control-buttons {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#time-frame {
+    width: 100%;
+    box-sizing: content-box;
+    padding: 3px 0;
+}
+
+#delete-confirmation-top {
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0.5, 0.5, 0.5, 0.4);
+    visibility: hidden;
+}
+
+#delete-confirmation-div {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 70%;
+    padding: 5%;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+#delete-confirmation-submit, #delete-confirmation-cancel {
+    width: 40%;
+    display: inline-block;
+    margin: 50px 5px 0 5px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
