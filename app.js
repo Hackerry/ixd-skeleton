@@ -54,6 +54,7 @@ app.get('/userLogIn', userAction.logInAction);
 app.get('/settings', settings.view);
 app.get('/userRetrieveSettings', userAction.retrieveSettings);
 app.get('/userGetActivities', userAction.getActivities);
+app.get('/userDeleteActivity', userAction.deleteActivity);
 app.get('/userSetSettings', userAction.setSettings);
 app.get('/suggestions', suggestions.view);
 app.get('/details', details.view);

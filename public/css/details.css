@@ -40,6 +40,7 @@ a {
     padding: 0 10px;
     border-radius: 10px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .activities-date {
@@ -65,6 +66,14 @@ a {
     display: inline-block;
 }
 
+.activity-delete-button {
+    position: absolute;
+    display: inline-block;
+    top: 3px;
+    right: 6px;
+    font-size: 1.2em;
+}
+
 #no-activities, #home-button {
     width: 80%;
     margin: 20px auto;
@@ -77,5 +86,50 @@ a {
 #home-button {
     background-color: lightgray;
     display: inline-block;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#control-buttons {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#time-frame {
+    width: 100%;
+    box-sizing: content-box;
+    padding: 3px 0;
+}
+
+#delete-confirmation-top {
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0.5, 0.5, 0.5, 0.4);
+    visibility: hidden;
+}
+
+#delete-confirmation-div {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 70%;
+    padding: 5%;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+#delete-confirmation-submit, #delete-confirmation-cancel {
+    width: 40%;
+    display: inline-block;
+    margin: 50px 5px 0 5px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
     padding: 5px;
 }

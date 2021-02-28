@@ -61,7 +61,18 @@ exports.getActivities = function(req, res) {
 
     res.json({
         "success": true,
-        "activities": activityUtil.getActivites(username)
+        "activities": activityUtil.getActivites(username),
+    });
+}
+
+exports.deleteActivity = function(req, res) {
+    var username = req.query.username;
+    var date = req.query.date;
+    var index = req.query.index;
+
+    res.json({
+        "success": true,
+        "activities": activityUtil.deleteActivity(username, date, index),
     });
 }
 

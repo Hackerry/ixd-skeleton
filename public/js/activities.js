@@ -104,5 +104,27 @@ function getActivites(username) {
     return sortedData;
 }
 
+function deleteActivity(username, date, index) {
+    // Get user setting start date
+    var allUserActivities = JSON.parse(fs.readFileSync(activitiesFile, 'utf8'));
+
+    // Find date and delete based on entry
+    var activities = allUserActivities[username];
+    if(activities.hasOwnProperty(date)) {
+        activities[date].splice(index, 1);
+
+        // If empty, delete entry
+        if(activities[date].length == 0) {
+            delete activities[date];
+        }
+
+        var data = JSON.stringify(allUserActivities);
+        fs.writeFileSync(activitiesFile, data, 'utf8');
+    }
+
+    return getActivites(username);
+}
+
 exports.getActivitySummary = getActivitySummary;
 exports.getActivites = getActivites;
+exports.deleteActivity = deleteActivity;

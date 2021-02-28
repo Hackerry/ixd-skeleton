@@ -11,7 +11,7 @@ exports.view = function (req, res) {
     var sum = 0;
     // Force average
     for (var i in activityData) {
-        activityData[i].count[week] /= (7*3600);
+        activityData[i].count[week] /= 3600;
         sum += activityData[i].count[week];
     }
     if (sum == 0) {
@@ -43,6 +43,7 @@ exports.view = function (req, res) {
         suggestions.push("need less work and / or school time");
     }
     if (funHour < 4) {
+        console.log('Fun Hour:', funHour);
         suggestions.push("need more fun time");
     }
     else {

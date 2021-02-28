@@ -35,11 +35,29 @@
 
                 <a href='/home'><div id='home-button'>Home</div></a>
 
+                <div id='control-buttons'>
+                    <select id="time-frame">
+                        <option value="-1">Today</option>
+                        <option value="0">This Week</option>
+                        <option value="1">Last Week</option>
+                        <option value="2">2 Weeks Ago</option>
+                        <option value="3">All Times</option>
+                    </select>
+                </div>
+
                 <div id='activities-list'>
                     <!-- Dynamically generated -->
                 </div>
 
                 <div id='no-activities'>No past activities</div>
+
+                <div id='delete-confirmation-top'>
+                    <div id='delete-confirmation-div'>
+                        Are you sure you want to delete the activity?<br>
+                        <div id='delete-confirmation-submit'>Delete</div>
+                        <div id='delete-confirmation-cancel'>Cancel</div>
+                    </div>
+                </div>
 
                 <!-- Template div
                     <div id='activities-list'>
@@ -67,23 +85,30 @@
 	</script>
 
     <script>
+        const ONE_DAY_TIME = 1000 * 60 * 60 * 24;
         var activities;
 
         // Ajax to retrieve activites
         $(document).ready(() => {
-            console.log("Done");
+            // Default select week
+            var url = window.location.href;
+            if(url.indexOf('week=') !== -1) {
+                var week = url.substring(url.indexOf('week=') + 5);
+                $('#time-frame').val(week);
+            }
+
             $.ajax({
                 type: "GET",
                 url: '/userGetActivities',
                 data: ({ username : username }),
                 dataType: "json",
                 success: function(data) {
-                    console.log("Returned data:", data);
                     if(data['success']) {
                         activities = data['activities'];
+                        console.log("Got activities:", activities);
                         updateActivities();
                     } else {
-                        alert("Fail to login due to: " + data['reason']);
+                        alert("Fail to get activities: " + data['reason']);
                     }
                 },
                 error: function(e) {
@@ -92,41 +117,147 @@
             });
         });
 
-        // Update activities by 10 more
         function updateActivities() {
+            // Get time frame
+            var week = $('#time-frame').val();
+            var data;
+            if(week === '-1') {
+                data = getToday();
+            } else if(week === '3') {
+                data = activities;
+            } else {
+                data = getWeek(week);
+            }
+
+            // console.log(data);
+            updateView(data);
+        }
+
+        function updateView(data) {
+            // Clear first
+            $('#activities-list').html('');
+            $('#no-activities').css('visibility', 'hidden');
+
             // No activities
-            if(activities.length === 0) {
+            if(data.length === 0) {
                 $('#no-activities').css('visibility', 'visible');
                 return;
             }
 
             // Generate activities
             var htmlString = '';
-            for(var i = 0; i < activities.length; i++) {
-                htmlString += getDateTitle(activities[i].date);
-                for(var j = 0; j < activities[i].activities.length; j++) {
-                    var activity = activities[i].activities[j];
-                    console.log(activity);
-                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], activity['duration'] / 3600);
+            for(var i = 0; i < data.length; i++) {
+                htmlString += getDateTitle(data[i].date);
+                for(var j = 0; j < data[i].activities.length; j++) {
+                    var activity = data[i].activities[j];
+                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], activity['duration'] / 3600, data[i].date, j);
                 }
             }
             $('#activities-list').html(htmlString);
         }
 
-        function getActivityDiv(title, type, startTime, endTime, duration) {
+        function getActivityDiv(title, type, startTime, endTime, duration, date, index) {
             var str = 
                 "<div class='activities-div'>" + 
                     "<h2 class='activities-title'>" + title + "</h2>" +
                     "<span class='activities-type'>" + type + "</span>" +
                     "<p class='activities-time'>" + startTime + " - " + endTime + "</p>" +
                     "<p class='activities-duration'>" + duration + "h</p>" +
+                    "<i class='fas fa-times activity-delete-button' id='activity-delete-" + date + "-" + index + "'></i>" +
                 "</div>";
-            console.log(str);
             return str;
         }
 
         function getDateTitle(date) {
             return "<h2 class='activities-date'>" + date + "</h2>";
         }
+
+        // select time frame
+        $('#time-frame').on('change', () => {
+            updateActivities();
+        });
+
+        function getToday() {
+            var data = [];
+
+            var today = new Date();
+            var dateStr = (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
+
+            for(var i in activities) {
+                if(activities[i]['date'] === dateStr) {
+                    data.push(activities[i]);
+                    break;
+                }
+            }
+
+            return data;
+        }
+
+        function getWeek(weekBeforeToday) {
+            var today = new Date();
+
+            // Get start marker
+            var startDate = new Date(today - (today.getDay()*ONE_DAY_TIME));
+            startDate = new Date((startDate.getMonth() + 1) + "/" + startDate.getDate() + "/" + startDate.getFullYear());
+
+            var data = [];
+
+            // Get activities that is within given week range
+            for (var i in activities) {
+                var date = activities[i]['date'];
+
+                // Calculate how many day prior the activities are for
+                var lastDate = new Date(date);
+                var diffTime = startDate - lastDate;
+                var diffDays = Math.ceil(diffTime / ONE_DAY_TIME);
+
+                // Check within week range
+                if(diffDays > weekBeforeToday * 7 || diffDays <= (weekBeforeToday-1) * 7) continue;
+
+                // Store those activities
+                data.push(activities[i]);
+            }
+
+            return data;
+        }
+
+        // Register delete activities function
+        var date;
+        var index;
+        $(document).on('click', "[id^='activity-delete-']", (e) => {
+            var idParts = e.target.id.split('-');
+            date = idParts[2];
+            index = idParts[3];
+            console.log('To delete activity:', date, index);
+
+            // Show delete confirmation div
+            $('#delete-confirmation-top').css('visibility', 'visible');
+        });
+
+        $('#delete-confirmation-cancel').click(() => {
+            $('#delete-confirmation-top').css('visibility', 'hidden');
+        });
+
+        $('#delete-confirmation-submit').click(() => {
+            $.ajax({
+                type: "GET",
+                url: '/userDeleteActivity',
+                data: ({ username : username, date: date, index: index }),
+                dataType: "json",
+                success: function(data) {
+                    if(data['success']) {
+                        activities = data['activities'];
+                        console.log("Got activities after deletion:", activities);
+                        updateActivities();
+                        $('#delete-confirmation-top').css('visibility', 'hidden');
+                    } else {
+                        alert("Fail to get activities: " + data['reason']);
+                    }
+                },
+                error: function(e) {
+                    alert("Ajax error");
+                }
+            });
+        });
     </script>
 </html>
