@@ -146,11 +146,13 @@ a {
 }
 
 #detail-button, #suggestion-button {
-    background-color: lightgray;
-    padding: 5px;
-    width: 60%;
     display: inline-block;
     margin: 10px 0;
+    background-color: #009BCF;
+    border-radius: 50px;
+    padding: 5px;
+    width: 60%;
+    color: white;
 }
 
 #has-data-div {

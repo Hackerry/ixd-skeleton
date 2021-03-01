@@ -105,6 +105,10 @@ a {
 
 #back-button {
     display: inline-block;
-    background-color: lightgray;
     padding: 5px 10px;
+    background-color: #009BCF;
+    border-radius: 50px;
+    width: 60%;
+    margin: 10px 0;
+    color: white;
 }

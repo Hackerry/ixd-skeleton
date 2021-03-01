@@ -85,10 +85,14 @@ a {
 }
 
 #home-button {
-    background-color: lightgray;
     display: inline-block;
     padding: 5px;
     box-sizing: border-box;
+    background-color: #009BCF;
+    border-radius: 50px;
+    margin: 10px 0;
+    color: white;
+    width: 60%;
 }
 
 #control-buttons {
