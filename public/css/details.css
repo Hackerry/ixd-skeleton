@@ -38,7 +38,7 @@ a {
     text-align: left;
     margin: 10px auto;
     border: 2px solid black;
-    padding: 0 10px;
+    padding: 10px;
     border-radius: 10px;
     box-sizing: border-box;
     position: relative;
@@ -73,6 +73,58 @@ a {
     top: 3px;
     right: 6px;
     font-size: 1.2em;
+}
+
+.activity-edit {
+    width: 100%;
+    padding: 10px 0;
+    border-top: 1px dashed;
+}
+
+.activity-edit-invisible {
+    height: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+.activity-edit input, .activity-edit select {
+    padding: 2px 5px;
+    box-sizing: border-box;
+    margin: 10px 1%;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    border-bottom: 1px solid black;
+}
+
+.activity-title-input {
+    width: 58%;
+    font-weight: bold;
+}
+
+.activity-type-input {
+    width: 38%;
+}
+
+.activity-start-time-input, .activity-end-time-input {
+    width: 98%;
+}
+
+.activity-cancel-button, .activity-edit-button {
+    width: 48%;
+    margin: 10px 1% 0 1%;
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    background-color: lightgray;
+    box-sizing: border-box;
+    border: 2px solid black;
+}
+
+.activity-error-text {
+    visibility: hidden;
+    margin: 2px;
+    color: red;
 }
 
 #no-activities, #home-button {
