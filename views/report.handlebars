@@ -97,7 +97,10 @@
                 "name": "{{name}}",
                 "color": "{{color}}",
                 {{#each count}}
-                "{{@index}}": {{this}},
+                "c-{{@index}}": {{this}},
+                {{/each}}
+                {{#each days}}
+                "d-{{@index}}": {{this}},
                 {{/each}}
             },
             {{/each}}
@@ -134,7 +137,7 @@
             // Calculate percent
             var sum = 0.0;
             for(var i = 0; i < activities.length; i++) {
-                sum += activities[i][weekVal];
+                sum += activities[i]['c-'+weekVal];
             }
 
             // No data
@@ -143,9 +146,9 @@
             }
 
             for(var i = 0; i < activities.length; i++) {
-                activities[i]["percent"] = activities[i][weekVal]/sum;
+                activities[i]["percent"] = activities[i]['c-'+weekVal]/sum;
             }
-            // console.log("Calculated percents:", activities, sum);
+            //console.log("Calculated percents:", activities, sum);
 
             // Draw each arc
             for(var i = 0; i < activities.length; i++) {
@@ -169,15 +172,15 @@
             list.innerHTML = '';
 
             for(var i = 0; i < activities.length; i++) {
-                if(activities[i][weekVal] !== 0) {
+                if(activities[i]['c-'+weekVal] !== 0) {
                     var activity = document.createElement("li");
                     var icon = document.createElement("span");
                     activity.className = "list-entry";
                     icon.style.backgroundColor = activities[i]["color"];
                     if(average) {
-                        activity.innerText = activities[i]["name"] + ": " + (activities[i][weekVal]/(3600 * 7)).toFixed(2) + " hrs/day";
+                        activity.innerText = activities[i]["name"] + ": " + (activities[i]['c-'+weekVal]/(3600 * activities[i]['d-'+weekVal])).toFixed(2) + " hrs/day";
                     } else {
-                        activity.innerText = activities[i]["name"] + ": " + (activities[i][weekVal]/3600).toFixed(2) + " hrs";
+                        activity.innerText = activities[i]["name"] + ": " + (activities[i]['c-'+weekVal]/3600).toFixed(2) + " hrs";
                     }
                     activity.prepend(icon);
                     list.appendChild(activity);
