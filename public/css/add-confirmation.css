@@ -44,9 +44,14 @@ a {
 
 #done-button {
     width: 50%;
-    background-color: lightgray;
     padding: 10px;
     margin: 0 auto;
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #009BCF;
+    border-radius: 50px;
+    color: white;
+    margin-bottom: 15px;
 }
 
 #done-button:hover {
