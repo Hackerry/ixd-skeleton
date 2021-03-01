@@ -103,6 +103,7 @@ function getActivitySummary(username) {
     for(var i = 0; i < activityTypes["types"].length; i++) {
         var type = activityTypes["types"][i];
         type["count"] = [0,0,0];
+        type["days"] = [0,0,0];
         typeData.push(type);
     }
 
@@ -115,6 +116,7 @@ function getActivitySummary(username) {
 
     // Generate weekly report
     var userActivities = allUserActivities[username];
+    var dayCount = [];
     for (var date in userActivities) {
         var dateActivities = userActivities[date];
 
@@ -126,6 +128,15 @@ function getActivitySummary(username) {
         // 3 Weeks prior
         if(diffDays > 7 * WEEK_TO_GEN) continue;
 
+        // Count day of input
+        var alreadyCounted = false;
+        for(var i = 0; i < dayCount.length; i++) {
+            if(dayCount[i] === diffDays) {
+                alreadyCounted = true;
+                break;
+            }
+        }
+
         // Store activities by type
         for(var i = 0; i < dateActivities.length; i++) {
             var activity = dateActivities[i];
@@ -133,10 +144,13 @@ function getActivitySummary(username) {
                 if(typeData[j]["name"] === activity["type"]) {
                     if(diffDays <= 0) {
                         typeData[j]["count"][0] += activity["duration"];
+                        if(!alreadyCounted) typeData[j]["days"][0] += 1;
                     } else if(diffDays <= 7) {
                         typeData[j]["count"][1] += activity["duration"];
+                        if(!alreadyCounted) typeData[j]["days"][1] += 1;
                     } else {
                         typeData[j]["count"][2] += activity["duration"];
+                        if(!alreadyCounted) typeData[j]["days"][2] += 1;
                     }
                     break;
                 }
