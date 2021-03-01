@@ -108,6 +108,26 @@ a {
     margin-right: 10%;
 }
 
+.question {
+    background-color: black;
+    color: white;
+    margin: 2px 0;
+    padding: 5px;
+}
+
+.answer {
+    transition: all 0.5s linear;
+    height: auto;
+}
+
+.answer-invisible {
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
 @media only screen and (min-width: 600px) {
     #help-content {
         margin-left: 20%;
