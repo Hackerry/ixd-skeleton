@@ -61,7 +61,6 @@ a {
 #login-select {
   width: 100%;
   padding-top: 10%;
-
 }
 
 #login-button,
@@ -102,11 +101,11 @@ a {
   background: #00B6F4;
   border: 1px white;
   color: white;
-  border-radius: 5px;
+  border-radius: 20px;
   display: inline-block;
-  padding: 2px;
-  margin: 10px;
-  width: 30%;
+  padding: 10px;
+  margin: 20px;
+  width: 50%;
 }
 
 #retype-div {
@@ -119,6 +118,7 @@ a {
 }
 
 .login-option-select {
-  background-color: black;
+  background-color: #00B6F4;
   color: white;
+  border-radius: 20px;
 }
