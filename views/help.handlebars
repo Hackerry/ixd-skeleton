@@ -34,7 +34,7 @@
 					<h1 id="mob-title">Help</h1>
 					<div id="help-content">
 						<p>Since our app is new, we would like to have some guidances in order to have a better idea of how to use the app.</p>
-						<p class='question' id='q1'>1. When does a report begin?</p>
+						<p class='question' id='q1'>1. When does a report begin?<i class="fas fa-angle-down"></i></p>
 						<p class='answer answer-invisible' id='aq1'>For every week, a report begins on Sunday.</p>
 						<p class='question' id='q2'>2. Can an activity exceed 24 hours a day?</p>
 						<p class='answer answer-invisible' id='aq2'>An activity cannot exceed 24 hours per day.</p>
@@ -66,6 +66,7 @@
 			$('p[id^=q]').click((e) => {
 				var answerId = '#a' + e.currentTarget.id;
 				$(answerId).toggleClass('answer-invisible');
+				$(answerId).hasClass('answer-invisible');
 			});
 		});
 	</script>
