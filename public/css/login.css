@@ -1,103 +1,124 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right bottom, rgba(0, 182, 244, 100%), rgba(0, 182, 244, 40%), rgba(253, 220, 205, 40%), rgba(253, 220, 205, 100%));
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(
+    to right bottom,
+    rgba(0, 182, 244, 0.5),
+    rgba(0, 182, 244, 40%),
+    rgba(253, 220, 205, 0.5),
+    rgba(253, 220, 205, 100%)
+  );
 }
 
 .home-content {
-    line-height: 25px;
+  line-height: 25px;
 }
 
 #title-bar {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 #mob-title {
-    margin-top: 50px;
-    margin-bottom: 10px;
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 #root-div {
-    width: 100%;
-    margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
 }
 
 #content-div {
-    width: 100%;
-    text-align: center;
-    margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
 }
 
 #login-div {
-    width: 80%;
-    margin: 10px auto;
+  width: 80%;
+  margin: 100px auto;
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.6)
+  );
+  border-radius: 2rem;
+  z-index: 2;
+  backdrop-filter: blur(2rem);
 }
 
 #login-select {
-    width: 100%;
+  width: 100%;
+  padding-top: 10%;
+
 }
 
-#login-button, #signup-button {
-    display: inline-block;
-    width: 40%;
-    padding: 5px;
+#login-button,
+#signup-button {
+  display: inline-block;
+  width: 40%;
+  padding: 5px;
 }
 
-#login-button:hover, #signup-button:hover {
-    cursor: pointer;
+#login-button:hover,
+#signup-button:hover {
+  cursor: pointer;
 }
 
 #login-title {
-    margin: 15px;
+  margin: 15px;
 }
 
 .login-entry {
-    width: 60%;
-    margin: 15px auto;
-    position: relative;
+  width: 60%;
+  margin: 15px auto;
+  position: relative;
 }
 
 .login-label {
-    text-align: left;
-    font-weight: bold;
-    display: block;
-    margin: 5px 0;
+  text-align: left;
+  font-weight: bold;
+  display: block;
+  margin: 5px 0;
 }
 
 .login-entry input {
-    width: 100%;
-    padding: 2px 5px;
+  width: 100%;
+  padding: 2px 5px;
 }
 
 #login-submit {
-    border: 2px solid black;
-    border-radius: 5px;
-    display: inline-block;
-    padding: 2px;
-    margin: 40px;
-    width: 60%;
+  background: #00B6F4;
+  border: 1px white;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 2px;
+  margin: 10px;
+  width: 30%;
 }
 
 #retype-div {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 #login-submit:hover {
-    cursor: pointer;
-    background-color: lightgray;
+  cursor: pointer;
+  background-color: lightgray;
 }
 
 .login-option-select {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
