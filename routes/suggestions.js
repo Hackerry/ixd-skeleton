@@ -36,18 +36,15 @@ exports.view = function (req, res) {
             otherHour = activityData[i].count[week];
     }
     // console.log(workHour, funHour, familyHour, schoolHour, otherHour, sum);
-    if (sum > 24) {
-        suggestions.push("hmmm something wrong ?");
-    }
     if (workHour + schoolHour > 12) {
         suggestions.push("need less work and / or school time");
     }
-    if (funHour < 4) {
+    else if (funHour < 4) {
         console.log('Fun Hour:', funHour);
         suggestions.push("need more fun time");
     }
     else {
-        suggestions.push("good:) !!!");
+        suggestions.push("good :) !!!");
     }
 
     // Remove types that have no hours
