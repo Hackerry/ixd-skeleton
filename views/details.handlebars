@@ -172,7 +172,7 @@
                 htmlString += getDateTitle(data[i].date);
                 for(var j = 0; j < data[i].activities.length; j++) {
                     var activity = data[i].activities[j];
-                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], activity['duration'] / 3600, data[i].date, j);
+                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], (activity['duration'] / 3600).toFixed(2), data[i].date, j);
                 }
             }
             $('#activities-list').html(htmlString);
