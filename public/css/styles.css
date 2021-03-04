@@ -109,8 +109,9 @@ a {
 }
 
 .question {
-    background-color: black;
-    color: white;
+    background-color: white;
+    opacity: 70%;
+    /* color: white; */
     margin: 2px 0;
     padding: 5px;
     position: relative;
