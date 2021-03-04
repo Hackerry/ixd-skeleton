@@ -106,11 +106,20 @@ a {
     visibility: hidden;
 }
 
+.save-div {
+    margin: 20px auto;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
 #save-button {
-    background-color: lightgray;
+    background-color: #009BCF;
     display: inline-block;
     padding: 5px;
-    width: 100%;
+    width: 60%;
     text-align: center;
     box-sizing: border-box;
+    border-radius: 50px;
+    color: white;
 }
