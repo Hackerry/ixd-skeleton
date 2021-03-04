@@ -224,7 +224,7 @@
             $('input[id^="activity-end-time-"]').ptTimeSelect();
         }
 
-        function getActivityDiv(title, type, startTime, endTime, duration, date, index) {
+        function getActivityDiv(title, type, startTime, endTime, duration, date, index, color) {
             var idMark = date + "-" + index;
             var typesSelect = '';
             for(var i = 0; i < types.length; i++) {
@@ -235,8 +235,17 @@
                 }
                 
             }
+
+            var bgColor, textColor;
+            for(var i = 0; i < types.length; i++) {
+                if(types[i]['name'] === type) {
+                    bgColor = types[i]["bgColor"];
+                    textColor = types[i]["textColor"];
+                    break;
+                }
+            }
             var str = 
-                "<div class='activities-div' id='activity-div-" + idMark + "'>" +
+                "<div class='activities-div' id='activity-div-" + idMark + "' style='background-color:" + bgColor + "; color:" + textColor + "'>" +
                     "<h2 class='activities-title'>" + title + "</h2>" +
                     "<span class='activities-type'>" + type + "</span>" +
                     "<p class='activities-time'>" + startTime + " - " + endTime + "</p>" +
