@@ -28,6 +28,7 @@
                         <li><a href='/add'>Add Activity</a></li>
                         <li><a href='/report'>Report</a></li>
                         <li><a href='/details'>All Activities</a></li>
+                        <li><a href='/settings'>Settings</a></li>
                         <li><a href='/help'>Help</a></li>
                         <li><a href='/'>Log Out</a></li>
                     </ul>
@@ -90,6 +91,7 @@
         const ONE_DAY_TIME = 1000 * 60 * 60 * 24;
         var activities = undefined;
         var types = undefined;
+        var settings = undefined;
 
         // Ajax to retrieve activites
         $(document).ready(() => {
@@ -109,7 +111,7 @@
                     if(data['success']) {
                         activities = data['activities'];
                         console.log("Got activities:", activities);
-                        if(types !== undefined) updateActivities();
+                        if(types !== undefined && settings !== undefined) updateActivities();
                     } else {
                         alert("Fail to get activities: " + data['reason']);
                     }
@@ -127,10 +129,29 @@
                 success: function(data) {
                     if(data['success']) {
                         types = data['types'];
-                        console.log("Got types:", activities);
-                        if(activities !== undefined) updateActivities();
+                        console.log("Got types:", types);
+                        if(activities !== undefined && settings !== undefined) updateActivities();
                     } else {
                         alert("Fail to get activities: " + data['reason']);
+                    }
+                },
+                error: function(e) {
+                    alert("Ajax error");
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: '/userRetrieveSettings',
+                data: ({ username: username }),
+                dataType: "json",
+                success: function(data) {
+                    if(data['success']) {
+                        settings = data['settings'];
+                        console.log("Got settings:", settings);
+                        if(types !== undefined && activities !== undefined) updateActivities();
+                    } else {
+                        alert("Fail to get user setting: " + data['reason']);
                     }
                 },
                 error: function(e) {
@@ -166,13 +187,36 @@
                 return;
             }
 
+            // Get display time format
+            var durationFormat = settings['durationFmt'];
+
             // Generate activities
             var htmlString = '';
             for(var i = 0; i < data.length; i++) {
                 htmlString += getDateTitle(data[i].date);
                 for(var j = 0; j < data[i].activities.length; j++) {
                     var activity = data[i].activities[j];
-                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], (activity['duration'] / 3600).toFixed(2), data[i].date, j);
+
+                    var durationStr = '';
+                    var hrs = activity['duration'] / 3600;
+                    if(durationFormat === 'hrs') {
+                        durationStr += hrs.toFixed(2);
+                        durationStr += " hrs";
+                    } else if(hrs < 1) {
+                        durationStr += activity['duration'] / 60;
+                        durationStr += " mins";
+                    } else {
+                        var hrs = Math.floor(hrs);
+                        durationStr += hrs;
+                        durationStr += "h";
+                        var mins = activity['duration'] - (hrs * 3600);
+                        if(mins !== 0){
+                            durationStr += " ";
+                            durationStr += Math.floor(mins / 60);
+                            durationStr += "m";
+                        }
+                    }
+                    htmlString += getActivityDiv(activity["name"], activity['type'], activity['start'], activity['end'], durationStr, data[i].date, j);
                 }
             }
             $('#activities-list').html(htmlString);
@@ -196,7 +240,7 @@
                     "<h2 class='activities-title'>" + title + "</h2>" +
                     "<span class='activities-type'>" + type + "</span>" +
                     "<p class='activities-time'>" + startTime + " - " + endTime + "</p>" +
-                    "<p class='activities-duration'>" + duration + "h</p>" +
+                    "<p class='activities-duration'>" + duration + "</p>" +
                     "<i class='fas fa-times activity-delete-button' id='activity-delete-" + idMark + "'></i>" +
                     "<div class='activity-edit activity-edit-invisible' id='activity-edit-" + idMark + "'>" +
                     "<h2>Edit Activity</h2>" +
@@ -239,8 +283,17 @@
         function getWeek(weekBeforeToday) {
             var today = new Date();
 
-            // Get start marker
-            var startDate = new Date(today - (today.getDay()*ONE_DAY_TIME));
+            // Get user setting start day
+            var startDay = settings['startDay'];
+            var offsetDay;
+            if(startDay < today.getDay()) {
+                offsetDay = today.getDay() - startDay;
+            } else {
+                offsetDay = today.getDay() + 7 - startDay;
+            }
+
+            // Only store 3 weeks of activities
+            var startDate = new Date(today - (offsetDay*ONE_DAY_TIME));
             startDate = new Date((startDate.getMonth() + 1) + "/" + startDate.getDate() + "/" + startDate.getFullYear());
 
             var data = [];

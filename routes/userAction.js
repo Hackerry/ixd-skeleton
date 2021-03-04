@@ -23,7 +23,8 @@ exports.signUpAction = function(req, res){
         userDatabase[username] = {
             'password': password,
             'settings': {
-                'startDay': "1",        // Report start day
+                'startDay': "0",        // Report start day - default to Sunday
+                'durationFmt': "min",   // Default to show minutes
             }
         };
         console.log(userDatabase);
@@ -131,6 +132,7 @@ exports.retrieveSettings = function(req, res) {
 exports.setSettings = function(req, res) {
     var username = req.query.username;
     var startDay = req.query.startDay;
+    var durationFmt = req.query.durationFmt;
 
     // Read database
     var userDatabase = JSON.parse(fs.readFileSync(userDatabaseFile, 'utf8'));
@@ -139,6 +141,7 @@ exports.setSettings = function(req, res) {
     // Check username exists
     if(userDatabase.hasOwnProperty(username)) {
         userDatabase[username]['settings']['startDay'] = startDay;
+        userDatabase[username]['settings']['durationFmt'] = durationFmt;
         var data = JSON.stringify(userDatabase);
         fs.writeFileSync(userDatabaseFile, data, 'utf8');
         res.json({

@@ -1,3 +1,4 @@
+const usersFile = "users.json";
 const activitiesFile = "activities.json";
 const activityTypesFile = "activityTypes.json";
 const fs = require("fs");
@@ -97,6 +98,7 @@ function getActivitySummary(username) {
     // Get user setting start date
     var allUserActivities = JSON.parse(fs.readFileSync(activitiesFile, 'utf8'));
     var activityTypes = JSON.parse(fs.readFileSync(activityTypesFile, 'utf8'));
+    var users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
 
     // Intialize all types and fill in value
     var typeData = [];
@@ -110,9 +112,19 @@ function getActivitySummary(username) {
     // Collect activities
     var today = new Date();
 
+    // Get user setting start day
+    var startDay = users[username]['settings']['startDay'];
+    var offsetDay;
+    if(startDay < today.getDay()) {
+        offsetDay = today.getDay() - startDay;
+    } else {
+        offsetDay = today.getDay() + 7 - startDay;
+    }
+
     // Only store 3 weeks of activities
-    var startDate = new Date(today - (today.getDay()*ONE_DAY_TIME));
+    var startDate = new Date(today - (offsetDay*ONE_DAY_TIME));
     startDate = new Date((startDate.getMonth() + 1) + "/" + startDate.getDate() + "/" + startDate.getFullYear());
+    console.log('Start day:', startDate);
 
     // Generate weekly report
     var userActivities = allUserActivities[username];
