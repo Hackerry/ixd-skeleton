@@ -61,7 +61,50 @@ exports.getActivities = function(req, res) {
 
     res.json({
         "success": true,
-        "activities": activityUtil.getActivites(username)
+        "activities": activityUtil.getActivites(username),
+    });
+}
+
+exports.deleteActivity = function(req, res) {
+    var username = req.query.username;
+    var date = req.query.date;
+    var index = req.query.index;
+
+    res.json({
+        "success": true,
+        "activities": activityUtil.deleteActivity(username, date, index),
+    });
+}
+
+exports.editActivity = function(req, res) {
+    var username = req.query.username;
+    var name = req.query.name;
+    var type = req.query.type;
+    var startTime = req.query.startTime;
+    var endTime = req.query.endTime;
+    var date = req.query.date;
+    var index = req.query.index;
+
+    console.log(username, name, type, startTime, endTime, date, index);
+
+    var response = activityUtil.editActivity(username, name, type, startTime, endTime, date, index);
+    if(response === '') {
+        res.json({
+            "success": true,
+            "activities": activityUtil.getActivites(username),
+        });
+    } else {
+        res.json({
+            "success": false,
+            "reason": response,
+        });
+    }
+}
+
+exports.getTypes = function(req, res) {
+    res.json({
+        "success": true,
+        "types": activityUtil.getTypes(),
     });
 }
 

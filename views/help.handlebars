@@ -4,6 +4,7 @@
 		<script src="https://kit.fontawesome.com/c9acfba105.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="css/styles.css">
 		<link rel="stylesheet" href="css/nav-bar.css">
+		<script src="js/jquery.js"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,9 +34,12 @@
 					<h1 id="mob-title">Help</h1>
 					<div id="help-content">
 						<p>Since our app is new, we would like to have some guidances in order to have a better idea of how to use the app.</p>
-						<p>1. An activity cannot exceed 24 hours per day.</p>
-						<p>2. The total amount of hours from the collection of activities cannot exceed 24 hours per day.</p>
-						<p>3. You can flexibly go to different pages by click/tapping the menu button on the top right, and see the options of where to go.</p>
+						<p class='question' id='q1'>1. When does a report begin?<i class="fas fa-angle-down drop-down-button" id='bq1'></i></p>
+						<p class='answer answer-invisible' id='aq1'>For every week, a report begins on Sunday.</p>
+						<p class='question' id='q2'>2. Can an activity exceed 24 hours a day?<i class="fas fa-angle-down drop-down-button" id='bq2'></i></p>
+						<p class='answer answer-invisible' id='aq2'>An activity cannot exceed 24 hours per day.</p>
+						<p class='question' id='q3'>3. Where can I find all the options?<i class="fas fa-angle-down drop-down-button" id='bq3'></i></p>
+						<p class='answer answer-invisible' id='aq3'>You can flexibly go to different pages by click/tapping the menu button on the top right, and see the options of where to go.</p>
 					</div>
 				</div>
 				<div id='buttons'>
@@ -55,5 +59,22 @@
 			// Not logged in
 			window.location.href = '/';
 		}
+	</script>
+
+	<script>
+		$(document).ready(() => {
+			$('p[id^=q]').click((e) => {
+				var answerId = '#a' + e.currentTarget.id;
+				var buttonId = '#b' + e.currentTarget.id;
+				$(answerId).toggleClass('answer-invisible');
+				if($(answerId).hasClass('answer-invisible')) {
+					$(buttonId).removeClass('fa-angle-up');
+					$(buttonId).addClass('fa-angle-down');
+				} else {
+					$(buttonId).removeClass('fa-angle-down');
+					$(buttonId).addClass('fa-angle-up');
+				}
+			});
+		});
 	</script>
 </html>

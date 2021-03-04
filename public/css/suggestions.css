@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right bottom, rgba(0, 182, 244, 100%), rgba(0, 182, 244, 40%), rgba(253, 220, 205, 40%), rgba(253, 220, 205, 100%));
 }
 
 * {
@@ -104,6 +105,10 @@ a {
 
 #back-button {
     display: inline-block;
-    background-color: lightgray;
     padding: 5px 10px;
+    background-color: #009BCF;
+    border-radius: 50px;
+    width: 60%;
+    margin: 10px 0;
+    color: white;
 }

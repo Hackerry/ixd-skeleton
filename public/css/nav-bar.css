@@ -43,6 +43,7 @@
     top: 0;
     text-align: left;
     padding-top: 100px;
+    z-index: 2;
 }
 
 #nav-bar-list {

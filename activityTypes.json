@@ -2,23 +2,23 @@
     "types": [
         {
             "name": "Family",
-            "color": "#e1c85a"
+            "color": "#A2E1DD"
         },
         {
             "name": "Fun",
-            "color": "#94ecff"
+            "color": "#EB8484"
         },
         {
             "name": "School",
-            "color": "#5b935a"
+            "color": "#91AC7B"
         },
         {
             "name": "Work",
-            "color": "#d15151"
+            "color": "#E9CD6A"
         },
         {
             "name": "Other",
-            "color": "#6a59ce"
+            "color": "#6C59DB"
         }
     ]
 }

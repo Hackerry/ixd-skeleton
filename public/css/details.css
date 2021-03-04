@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right bottom, rgba(0, 182, 244, 100%), rgba(0, 182, 244, 40%), rgba(253, 220, 205, 40%), rgba(253, 220, 205, 100%));
 }
 
 * {
@@ -37,9 +38,10 @@ a {
     text-align: left;
     margin: 10px auto;
     border: 2px solid black;
-    padding: 0 10px;
+    padding: 10px;
     border-radius: 10px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .activities-date {
@@ -65,6 +67,66 @@ a {
     display: inline-block;
 }
 
+.activity-delete-button {
+    position: absolute;
+    display: inline-block;
+    top: 3px;
+    right: 6px;
+    font-size: 1.2em;
+}
+
+.activity-edit {
+    width: 100%;
+    padding: 10px 0;
+    border-top: 1px dashed;
+}
+
+.activity-edit-invisible {
+    height: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+.activity-edit input, .activity-edit select {
+    padding: 2px 5px;
+    box-sizing: border-box;
+    margin: 10px 1%;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    border-bottom: 1px solid black;
+}
+
+.activity-title-input {
+    width: 58%;
+    font-weight: bold;
+}
+
+.activity-type-input {
+    width: 38%;
+}
+
+.activity-start-time-input, .activity-end-time-input {
+    width: 98%;
+}
+
+.activity-cancel-button, .activity-edit-button {
+    width: 48%;
+    margin: 10px 1% 0 1%;
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    background-color: lightgray;
+    box-sizing: border-box;
+    border: 2px solid black;
+}
+
+.activity-error-text {
+    visibility: hidden;
+    margin: 2px;
+    color: red;
+}
+
 #no-activities, #home-button {
     width: 80%;
     margin: 20px auto;
@@ -75,7 +137,56 @@ a {
 }
 
 #home-button {
-    background-color: lightgray;
     display: inline-block;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: #009BCF;
+    border-radius: 50px;
+    margin: 10px 0;
+    color: white;
+    width: 60%;
+}
+
+#control-buttons {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#time-frame {
+    width: 100%;
+    box-sizing: content-box;
+    padding: 3px 0;
+}
+
+#delete-confirmation-top {
+    height: 100%;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0.5, 0.5, 0.5, 0.4);
+    visibility: hidden;
+}
+
+#delete-confirmation-div {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 70%;
+    padding: 5%;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+#delete-confirmation-submit, #delete-confirmation-cancel {
+    width: 40%;
+    display: inline-block;
+    margin: 50px 5px 0 5px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
     padding: 5px;
 }
