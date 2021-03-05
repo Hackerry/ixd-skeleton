@@ -32,8 +32,9 @@
                     </ul>
                 </div>
 
-                <h1>Add Activity</h1>
+                <h1 style="margin-top: 5px;">Add Activity</h1>
                 <form action="/addConfirmation" id='activity-form'>
+                <div id='adding-box'>
                     <div class='form-entry'>
                         <label>Activity Name</label>
                         <input name='activityName' type='text' id='activityNameInput' />
@@ -51,9 +52,10 @@
                         <input name='startTime' id='startTimeInput' autocomplete="off" />
                     </div>
                     <div class='form-entry'>
-                        <label>Stopping time</label>
+                        <label>Stopping Time</label>
                         <input name='endTime' id='endTimeInput' autocomplete="off" />
                         <p id='warning-text'>+1 day</p>
+                    </div>
                     </div>
                     <div class='form-entry'>
                         <input type='submit' value='Add' id='form-submit' />

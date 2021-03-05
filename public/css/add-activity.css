@@ -98,6 +98,15 @@ a {
     margin: 0 auto;
 }
 
+#adding-box {
+    background: linear-gradient(147.47deg, #FFFFFF -44.49%, #ffffff59 49.09%);
+    backdrop-filter: blur(4px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-top: 2px;
+}
+
 .form-entry {
     width: 80%;
     margin: 20px auto;

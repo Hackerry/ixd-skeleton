@@ -37,14 +37,14 @@ exports.view = function (req, res) {
     }
     // console.log(workHour, funHour, familyHour, schoolHour, otherHour, sum);
     if (workHour + schoolHour > 12) {
-        suggestions.push("need less work and / or school time");
+        suggestions.push("Please get less work and/or school time, you deserve a break and get some fun. :)");
     }
     else if (funHour < 4) {
         console.log('Fun Hour:', funHour);
-        suggestions.push("need more fun time");
+        suggestions.push("Please have more fun time, you deserve it. :)");
     }
     else {
-        suggestions.push("good :) !!!");
+        suggestions.push("Awesome! Everything is good so far. :)");
     }
 
     // Remove types that have no hours

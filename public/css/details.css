@@ -25,12 +25,13 @@ a {
 }
 
 #details-title {
-    margin-top: 50px;
+    margin-top: 5px;
+    margin-bottom: 30px;
 }
 
 #activities-list {
     width: 80%;
-    margin: 20px auto;
+    margin: 0px auto;
 }
 
 .activities-div {
@@ -149,6 +150,7 @@ a {
     background-color: #009BCF;
     border-radius: 50px;
     margin: 10px 0;
+    margin-top: 15px;
     color: white;
     width: 60%;
 }

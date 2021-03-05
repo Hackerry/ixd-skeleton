@@ -122,4 +122,9 @@ a {
     box-sizing: border-box;
     border-radius: 50px;
     color: white;
+    margin-top: 10px;
+}
+
+label {
+    font-size: 15px;
 }

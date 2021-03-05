@@ -90,11 +90,16 @@ a {
 }
 
 #week, #scale {
-    background-color: lightgray;
+    /* background-color: lightgray; */
     box-sizing: content-box;
     border: none;
     padding: 5px;
     text-align: center;
+    background-color: white;
+    opacity: 70%;
+    margin: 2px 0;
+    /* padding: 5px; */
+    /* position: relative; */
 }
 
 #chart {
