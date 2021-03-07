@@ -3,6 +3,8 @@ repo
 
 Project Description
 
+Note: This is a separate branch for A8, for the information of A7, please check the branch named "A5".
+
 External Sources Used:
 1. W3Schools Tutorials: https://www.w3schools.com/
 2. MDN Documentation Example JS code: https://developer.mozilla.org/en-US/docs/Web/JavaScript
